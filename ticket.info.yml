@@ -1,0 +1,9 @@
+name: 'Ticket'
+description: 'Tickets for attending an event.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - node
+version: 8.x-1.0
+package: 'COD'
