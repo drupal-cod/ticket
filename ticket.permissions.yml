@@ -1,0 +1,22 @@
+add ticket entities:
+  title: 'Create new Ticket entities'
+
+administer ticket entities:
+  title: 'Administer Ticket entities'
+  description: 'Allow to access the administration form to configure Ticket entities.'
+  restrict access: true
+
+delete ticket entities:
+  title: 'Delete Ticket entities'
+
+edit ticket entities:
+  title: 'Edit Ticket entities'
+
+access ticket overview:
+  title: 'Access the Ticket overview page'
+
+view published ticket entities:
+  title: 'View published Ticket entities'
+
+view unpublished ticket entities:
+  title: 'View unpublished Ticket entities'

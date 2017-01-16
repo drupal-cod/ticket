@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Contains ticket.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ticket_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ticket module.
+    case 'help.page.ticket':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Tickets for attending an event.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ticket_theme() {
+  $theme = [];
+  $theme['ticket'] = array(
+    'render element' => 'elements',
+    'file' => 'ticket.page.inc',
+    'template' => 'ticket',
+  );
+  $theme['ticket_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'ticket.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+* Implements hook_theme_suggestions_HOOK().
+*/
+function ticket_theme_suggestions_ticket(array $variables) {
+  $suggestions = array();
+  $entity = $variables['elements']['#ticket'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'ticket__' . $sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $entity->bundle();
+  $suggestions[] = 'ticket__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $entity->id();
+  $suggestions[] = 'ticket__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
