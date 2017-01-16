@@ -1,0 +1,11 @@
+entity.ticket.add_form:
+  route_name: 'entity.ticket.add_page'
+  title: 'Add Ticket'
+  appears_on:
+    - entity.ticket.collection
+entity.ticket_type.add_form:
+  route_name: 'entity.ticket_type.add_form'
+  title: 'Add Ticket type'
+  appears_on:
+    - entity.ticket_type.collection
+
