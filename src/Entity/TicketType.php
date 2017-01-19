@@ -23,9 +23,9 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   },
  *   config_prefix = "ticket_type",
  *   admin_permission = "administer site configuration",
- *   bundle_of = "ticket",
+ *   bundle_of = "ticket_registration",
  *   entity_keys = {
- *     "id" = "id",
+ *     "id" = "ttid",
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
@@ -38,14 +38,15 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   }
  * )
  */
-class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface {
+class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
+{
 
   /**
    * The Ticket type ID.
    *
    * @var string
    */
-  protected $id;
+  protected $ttid;
 
   /**
    * The Ticket type label.
@@ -54,4 +55,11 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface {
    */
   protected $label;
 
+  /**
+   * {@inheritdoc}
+   */
+  public function id()
+  {
+    return $this->ttid;
+  }
 }

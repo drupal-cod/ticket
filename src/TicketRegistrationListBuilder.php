@@ -8,11 +8,11 @@ use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
 
 /**
- * Defines a class to build a listing of Ticket entities.
+ * Defines a class to build a listing of Ticket registration entities.
  *
  * @ingroup ticket
  */
-class TicketListBuilder extends EntityListBuilder {
+class TicketRegistrationListBuilder extends EntityListBuilder {
 
   use LinkGeneratorTrait;
 
@@ -20,7 +20,7 @@ class TicketListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Ticket ID');
+    $header['id'] = $this->t('Ticket registration ID');
     $header['name'] = $this->t('Name');
     return $header + parent::buildHeader();
   }
@@ -29,13 +29,13 @@ class TicketListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\ticket\Entity\Ticket */
+    /* @var $entity \Drupal\ticket\Entity\TicketRegistration */
     $row['id'] = $entity->id();
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
-        'entity.ticket.edit_form', array(
-          'ticket' => $entity->id(),
+        'entity.ticket_registration.edit_form', array(
+          'ticket_registration' => $entity->id(),
         )
       )
     );

@@ -6,17 +6,17 @@ use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Form controller for Ticket edit forms.
+ * Form controller for Ticket registration edit forms.
  *
  * @ingroup ticket
  */
-class TicketForm extends ContentEntityForm {
+class TicketRegistrationForm extends ContentEntityForm {
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\ticket\Entity\Ticket */
+    /* @var $entity \Drupal\ticket\Entity\TicketRegistration */
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 
@@ -32,17 +32,17 @@ class TicketForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Ticket.', [
+        drupal_set_message($this->t('Created the %label Ticket registration.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Ticket.', [
+        drupal_set_message($this->t('Saved the %label Ticket registration.', [
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.ticket.canonical', ['ticket' => $entity->id()]);
+    $form_state->setRedirect('entity.ticket_registration.canonical', ['ticket_registration' => $entity->id()]);
   }
 
 }
