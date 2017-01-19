@@ -1,22 +1,22 @@
-add ticket entities:
-  title: 'Create new Ticket entities'
+add ticket registration entities:
+  title: 'Create new Ticket registration entities'
 
-administer ticket entities:
-  title: 'Administer Ticket entities'
-  description: 'Allow to access the administration form to configure Ticket entities.'
+administer ticket registration entities:
+  title: 'Administer Ticket registration entities'
+  description: 'Allow to access the administration form to configure Ticket registration entities.'
   restrict access: true
 
-delete ticket entities:
-  title: 'Delete Ticket entities'
+delete ticket registration entities:
+  title: 'Delete Ticket registration entities'
 
-edit ticket entities:
-  title: 'Edit Ticket entities'
+edit ticket registration entities:
+  title: 'Edit Ticket registration entities'
 
-access ticket overview:
-  title: 'Access the Ticket overview page'
+access ticket registration overview:
+  title: 'Access the Ticket registration overview page'
 
-view published ticket entities:
-  title: 'View published Ticket entities'
+view published ticket registration entities:
+  title: 'View published Ticket registration entities'
 
-view unpublished ticket entities:
-  title: 'View unpublished Ticket entities'
+view unpublished ticket registration entities:
+  title: 'View unpublished Ticket registration entities'

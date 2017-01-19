@@ -16,7 +16,7 @@ function ticket_help($route_name, RouteMatchInterface $route_match) {
     case 'help.page.ticket':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('Tickets for attending an event.') . '</p>';
+      $output .= '<p>' . t('Provides functionality for events to have tickets.') . '</p>';
       return $output;
 
     default:
@@ -28,15 +28,15 @@ function ticket_help($route_name, RouteMatchInterface $route_match) {
  */
 function ticket_theme() {
   $theme = [];
-  $theme['ticket'] = array(
+  $theme['ticket_registration'] = array(
     'render element' => 'elements',
-    'file' => 'ticket.page.inc',
-    'template' => 'ticket',
+    'file' => 'ticket_registration.page.inc',
+    'template' => 'ticket_registration',
   );
-  $theme['ticket_content_add_list'] = [
+  $theme['ticket_registration_content_add_list'] = [
     'render element' => 'content',
     'variables' => ['content' => NULL],
-    'file' => 'ticket.page.inc',
+    'file' => 'ticket_registration.page.inc',
   ];
   return $theme;
 }
@@ -44,15 +44,15 @@ function ticket_theme() {
 /**
 * Implements hook_theme_suggestions_HOOK().
 */
-function ticket_theme_suggestions_ticket(array $variables) {
+function ticket_theme_suggestions_ticket_registration(array $variables) {
   $suggestions = array();
-  $entity = $variables['elements']['#ticket'];
+  $entity = $variables['elements']['#ticket_registration'];
   $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
 
-  $suggestions[] = 'ticket__' . $sanitized_view_mode;
-  $suggestions[] = 'ticket__' . $entity->bundle();
-  $suggestions[] = 'ticket__' . $entity->bundle() . '__' . $sanitized_view_mode;
-  $suggestions[] = 'ticket__' . $entity->id();
-  $suggestions[] = 'ticket__' . $entity->id() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'ticket_registration__' . $sanitized_view_mode;
+  $suggestions[] = 'ticket_registration__' . $entity->bundle();
+  $suggestions[] = 'ticket_registration__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'ticket_registration__' . $entity->id();
+  $suggestions[] = 'ticket_registration__' . $entity->id() . '__' . $sanitized_view_mode;
   return $suggestions;
 }

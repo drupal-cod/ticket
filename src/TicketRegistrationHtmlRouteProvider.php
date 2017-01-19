@@ -7,12 +7,12 @@ use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
- * Provides routes for Ticket entities.
+ * Provides routes for Ticket registration entities.
  *
  * @see Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
+class TicketRegistrationHtmlRouteProvider extends AdminHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -51,7 +51,7 @@ class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_entity_list' => $entity_type_id,
           '_title' => "{$entity_type->getLabel()} list",
         ])
-        ->setRequirement('_permission', 'access ticket overview')
+        ->setRequirement('_permission', 'access ticket registration overview')
         ->setOption('_admin_route', TRUE);
 
       return $route;
@@ -72,7 +72,7 @@ class TicketHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route = new Route("/admin/structure/{$entity_type->id()}/settings");
       $route
         ->setDefaults([
-          '_form' => 'Drupal\ticket\Form\TicketSettingsForm',
+          '_form' => 'Drupal\ticket\Form\TicketRegistrationSettingsForm',
           '_title' => "{$entity_type->getLabel()} settings",
         ])
         ->setRequirement('_permission', $entity_type->getAdminPermission())

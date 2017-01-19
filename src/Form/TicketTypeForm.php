@@ -28,15 +28,6 @@ class TicketTypeForm extends EntityForm {
       '#required' => TRUE,
     ];
 
-    $form['id'] = [
-      '#type' => 'machine_name',
-      '#default_value' => $ticket_type->id(),
-      '#machine_name' => [
-        'exists' => '\Drupal\ticket\Entity\TicketType::load',
-      ],
-      '#disabled' => !$ticket_type->isNew(),
-    ];
-
     /* You will need additional form elements for your custom properties. */
 
     return $form;
@@ -61,6 +52,8 @@ class TicketTypeForm extends EntityForm {
           '%label' => $ticket_type->label(),
         ]));
     }
+    $form_state->setValue('ttid', $ticket_type->id());
+    $form_state->set('ttid', $ticket_type->id());
     $form_state->setRedirectUrl($ticket_type->urlInfo('collection'));
   }
 
