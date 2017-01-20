@@ -56,10 +56,74 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
   protected $label;
 
   /**
+   * Description of the Ticket type.
+   *
+   * @var string
+   */
+  protected $description;
+
+  /**
+   * Quantity of Tickets for this Ticket type.
+   *
+   * @var integer
+   */
+  protected $quantity;
+
+  /**
+   * Registration start date for this Ticket type.
+   *
+   * @var integer
+   */
+  protected $start_date;
+
+  /**
+   * Registration end date for this Ticket type.
+   *
+   * @var integer
+   */
+  protected $end_date;
+
+  /**
    * {@inheritdoc}
    */
   public function id()
   {
     return $this->ttid;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDescription() {
+    return $this->description;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getQuantity() {
+    return $this->quantity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getStartDate() {
+    return $this->start_date;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEndDate() {
+    return $this->end_date;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isLocked() {
+    $locked = \Drupal::state()->get('ticket_type.locked');
+    return isset($locked[$this->id()]) ? $locked[$this->id()] : FALSE;
   }
 }

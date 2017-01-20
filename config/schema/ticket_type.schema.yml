@@ -2,11 +2,23 @@ ticket.ticket_type.*:
   type: config_entity
   label: 'Ticket type config'
   mapping:
-    id:
+    ttid:
       type: string
-      label: 'ID'
+      label: 'Machine name'
     label:
       type: label
       label: 'Label'
     uuid:
       type: string
+    description:
+      type: text
+      label: 'Description'
+    quantity:
+      type: integer
+      label: 'Quantity of Tickets'
+    start_date:
+      type: string
+      label: 'Registration Start Date'
+    end_date:
+      type: string
+      label: 'Registration End Date'

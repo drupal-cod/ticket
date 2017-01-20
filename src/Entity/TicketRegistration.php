@@ -56,8 +56,7 @@ use Drupal\user\UserInterface;
  *     "delete-form" = "/admin/ticket/ticket_registration/{ticket_registration}/delete",
  *     "collection" = "/admin/ticket/ticket_registration",
  *   },
- *   bundle_entity_type = "ticket_registration_type",
- *   field_ui_base_route = "entity.ticket_registration_type.edit_form"
+ *   field_ui_base_route = "entity.ticket_type.edit_form"
  * )
  */
 class TicketRegistration extends ContentEntityBase implements TicketRegistrationInterface {
