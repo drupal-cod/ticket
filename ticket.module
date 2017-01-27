@@ -6,6 +6,9 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\ticket\Entity\TicketType;
+use Drupal\ticket\Entity\TicketTypeInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -27,18 +30,11 @@ function ticket_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_theme().
  */
 function ticket_theme() {
-  $theme = [];
-  $theme['ticket_registration'] = array(
-    'render element' => 'elements',
-    'file' => 'ticket_registration.page.inc',
-    'template' => 'ticket_registration',
+  return array(
+    'ticket_registration_add_list' => array(
+      'variables' => array('content' => NULL),
+    ),
   );
-  $theme['ticket_registration_content_add_list'] = [
-    'render element' => 'content',
-    'variables' => ['content' => NULL],
-    'file' => 'ticket_registration.page.inc',
-  ];
-  return $theme;
 }
 
 /**
@@ -56,3 +52,29 @@ function ticket_theme_suggestions_ticket_registration(array $variables) {
   $suggestions[] = 'ticket_registration__' . $entity->id() . '__' . $sanitized_view_mode;
   return $suggestions;
 }
+
+  /**
+   * Prepares variables for list of available ticket type templates.
+   *
+   * Default template: ticket-registration-add-list.html.twig.
+   *
+   * @param array $variables
+   *   An associative array containing:
+   *   - content: An array of ticket types.
+   *
+   * @see ticket_registration_add_page()
+   */
+  function template_preprocess_ticket_registration_add_list(&$variables) {
+    $variables['ticket_type'] = array();
+    if (!empty($variables['content'])) {
+      foreach ($variables['content'] as $ticket_type) {
+        $variables['ticket_types'][$ticket_type->id()] = array(
+            'ticket_type' => $ticket_type->id(),
+            'add_link' => \Drupal::l(t($ticket_type->label()), new Url('ticket_registration.add', array('ticket_type' => $ticket_type->id()))),
+            'description' => array(
+                '#markup' => $ticket_type->getDescription(),
+            ),
+        );
+      }
+    }
+  }
