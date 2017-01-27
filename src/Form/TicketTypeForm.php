@@ -36,7 +36,7 @@ class TicketTypeForm extends EntityForm {
         '#disabled' => $ticket_type->isLocked(),
         '#machine_name' => array(
             'exists' => ['Drupal\ticket\Entity\TicketType', 'load'],
-            'source' => array('name'),
+            'source' => array('label'),
         ),
         '#description' => t('A unique machine-readable name for this ticket type. It must only contain lowercase letters, numbers, and underscores. This name will be used for constructing the URL of the %node-add page, in which underscores will be converted into hyphens.', array(
             '%node-add' => t('Add content'),
@@ -59,6 +59,7 @@ class TicketTypeForm extends EntityForm {
     $form['order_min'] = array(
         '#type' => 'number',
         '#required' => TRUE,
+        '#min' => 0,
         '#title' => $this->t('Min per order'),
         '#description' => t('The minimum number of tickets per order.'),
         '#default_value' => $ticket_type->getOrderMin(),
