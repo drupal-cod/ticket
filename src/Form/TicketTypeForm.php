@@ -51,19 +51,39 @@ class TicketTypeForm extends EntityForm {
 
     $form['quantity'] = array(
       '#type' => 'number',
-      '#title' => $this->t('Quantity of Tickets'),
+      '#title' => $this->t('Total Quantity'),
+      '#description' => t('The total number of tickets available. Leave blank for no limit.'),
       '#default_value' => $ticket_type->getQuantity(),
     );
 
+    $form['order_min'] = array(
+        '#type' => 'number',
+        '#required' => TRUE,
+        '#title' => $this->t('Min per order'),
+        '#description' => t('The minimum number of tickets per order.'),
+        '#default_value' => $ticket_type->getOrderMin(),
+    );
+
+    $form['order_max'] = array(
+        '#type' => 'number',
+        '#title' => $this->t('Max per order'),
+        '#description' => t('The maxiumum number of tickets per order. Leave blank for no maximum.'),
+        '#default_value' => $ticket_type->getOrderMax(),
+    );
+
     $form['start_date'] = array(
-      '#type' => 'date',
-      '#title' => $this->t('Registration Start Date'),
+      '#type' => 'datetime',
+      '#title' => $this->t('Registration Start'),
+      '#date_year_range' => '0:20',
+      '#description' => t('The date and time when this ticket type will be available to order.'),
       '#default_value' => $ticket_type->getStartDate(),
     );
 
     $form['end_date'] = array(
-        '#type' => 'date',
-        '#title' => $this->t('Registration End Date'),
+        '#type' => 'datetime',
+        '#title' => $this->t('Registration End'),
+        '#date_year_range' => '0:20',
+        '#description' => t('The date and time when this ticket type will stop being available to order.'),
         '#default_value' => $ticket_type->getEndDate(),
     );
 
