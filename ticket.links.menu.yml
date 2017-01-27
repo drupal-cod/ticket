@@ -13,12 +13,3 @@ entity.ticket_registration.collection:
   description: 'List Ticket registration entities'
   parent: system.admin_structure
   weight: 100
-
-# Ticket registration type menu items definition
-entity.ticket_registration_type.collection:
-  title: 'Ticket registration type'
-  route_name: entity.ticket_registration_type.collection
-  description: 'List Ticket registration type (bundles)'
-  parent: system.admin_structure
-  weight: 99
-

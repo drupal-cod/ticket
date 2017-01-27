@@ -17,7 +17,7 @@ use Drupal\user\UserInterface;
  * @ContentEntityType(
  *   id = "ticket_registration",
  *   label = @Translation("Ticket registration"),
- *   bundle_label = @Translation("Ticket registration type"),
+ *   bundle_label = @Translation("Ticket type"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\ticket\TicketRegistrationListBuilder",
@@ -25,7 +25,6 @@ use Drupal\user\UserInterface;
  *     "translation" = "Drupal\ticket\TicketRegistrationTranslationHandler",
  *
  *     "form" = {
- *       "default" = "Drupal\ticket\Form\TicketRegistrationForm",
  *       "add" = "Drupal\ticket\Form\TicketRegistrationForm",
  *       "edit" = "Drupal\ticket\Form\TicketRegistrationForm",
  *       "delete" = "Drupal\ticket\Form\TicketRegistrationDeleteForm",
@@ -46,12 +45,13 @@ use Drupal\user\UserInterface;
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
  *     "status" = "status",
+ *     "type" = "ticket_type",
  *   },
  *   bundle_entity_type = "ticket_type",
  *   links = {
  *     "canonical" = "/admin/ticket/ticket_registration/{ticket_registration}",
  *     "add-page" = "/admin/ticket/ticket_registration/add",
- *     "add-form" = "/admin/ticket/ticket_registration/add/{ticket_registration_type}",
+ *     "add-form" = "/admin/ticket/ticket_registration/add/{ticket_type}",
  *     "edit-form" = "/admin/ticket/ticket_registration/{ticket_registration}/edit",
  *     "delete-form" = "/admin/ticket/ticket_registration/{ticket_registration}/delete",
  *     "collection" = "/admin/ticket/ticket_registration",
@@ -63,12 +63,24 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
 
   use EntityChangedTrait;
 
+  protected $trid;
+
+  protected $ticket_type;
+
   /**
    * {@inheritdoc}
    */
   public function id()
   {
     return $this->trid;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTicketType()
+  {
+    return $this->ticket_type;
   }
 
   /**

@@ -42,6 +42,8 @@ class TicketRegistrationForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
+    $form_state->setValue('trid', $entity->id());
+    $form_state->set('trid', $entity->id());
     $form_state->setRedirect('entity.ticket_registration.canonical', ['ticket_registration' => $entity->id()]);
   }
 

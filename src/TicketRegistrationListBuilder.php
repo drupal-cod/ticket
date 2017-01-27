@@ -20,8 +20,9 @@ class TicketRegistrationListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Ticket registration ID');
     $header['name'] = $this->t('Name');
+    $header['type'] = $this->t('Ticket Type');
+    $header['user'] = $this->t('User');
     return $header + parent::buildHeader();
   }
 
@@ -39,6 +40,7 @@ class TicketRegistrationListBuilder extends EntityListBuilder {
         )
       )
     );
+    $row['type'] = $entity->getType();
     return $row + parent::buildRow($entity);
   }
 
