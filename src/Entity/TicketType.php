@@ -30,11 +30,11 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/ticket/ticket_type/{ticket_type}",
- *     "add-form" = "/admin/ticket/ticket_type/add",
- *     "edit-form" = "/admin/ticket/ticket_type/{ticket_type}/edit",
- *     "delete-form" = "/admin/ticket/ticket_type/{ticket_type}/delete",
- *     "collection" = "/admin/ticket/ticket_type"
+ *     "canonical" = "/ticket/type/{ticket_type}",
+ *     "add-form" = "/ticket/type/add",
+ *     "edit-form" = "/ticket/type/{ticket_type}/edit",
+ *     "delete-form" = "/ticket/type/{ticket_type}/delete",
+ *     "collection" = "/ticket/type"
  *   }
  * )
  */
@@ -86,8 +86,7 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
   /**
    * {@inheritdoc}
    */
-  public function id()
-  {
+  public function id() {
     return $this->ttid;
   }
 

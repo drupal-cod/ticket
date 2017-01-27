@@ -6,3 +6,5 @@ package: COD
 dependencies:
   - field
   - node
+  - datetime
+  - text

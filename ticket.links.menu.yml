@@ -1,15 +1,42 @@
 # Ticket type menu items definition
 entity.ticket_type.collection:
-  title: 'Ticket type'
+  title: 'Ticket Types'
   route_name: entity.ticket_type.collection
   description: 'List Ticket type (bundles)'
-  parent: system.admin_structure
+  parent: ticket
   weight: 99
+  menu_name: admin
+
+# Ticket registration menu items definition
+tyicket_type_add:
+  title: 'Add Ticket Type'
+  route_name: entity.ticket_type.add_form
+  description: 'Create Ticket Type'
+  parent: entity.ticket_type.collection
+  weight: 100
+  menu_name: admin
 
 # Ticket registration menu items definition
 entity.ticket_registration.collection:
-  title: 'Ticket registration list'
+  title: 'Ticket Registrations'
   route_name: entity.ticket_registration.collection
   description: 'List Ticket registration entities'
-  parent: system.admin_structure
+  parent: ticket
   weight: 100
+  menu_name: admin
+
+# Ticket registration menu items definition
+ticket_registration_add:
+  title: 'Create Ticket Registration'
+  route_name: ticket_registration.add_page
+  description: 'Create Ticket Registration'
+  parent: entity.ticket_registration.collection
+  weight: 100
+  menu_name: admin
+
+ticket:
+  title: Ticket
+  description: 'Ticket Overview.'
+  route_name: entity.ticket_type.collection
+  parent: system.admin
+  weight: -10

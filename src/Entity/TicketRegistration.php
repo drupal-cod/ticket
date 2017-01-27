@@ -25,6 +25,7 @@ use Drupal\user\UserInterface;
  *     "translation" = "Drupal\ticket\TicketRegistrationTranslationHandler",
  *
  *     "form" = {
+ *       "default" = "Drupal\ticket\Form\TicketRegistrationForm",
  *       "add" = "Drupal\ticket\Form\TicketRegistrationForm",
  *       "edit" = "Drupal\ticket\Form\TicketRegistrationForm",
  *       "delete" = "Drupal\ticket\Form\TicketRegistrationDeleteForm",
@@ -49,12 +50,10 @@ use Drupal\user\UserInterface;
  *   },
  *   bundle_entity_type = "ticket_type",
  *   links = {
- *     "canonical" = "/admin/ticket/ticket_registration/{ticket_registration}",
- *     "add-page" = "/admin/ticket/ticket_registration/add",
- *     "add-form" = "/admin/ticket/ticket_registration/add/{ticket_type}",
- *     "edit-form" = "/admin/ticket/ticket_registration/{ticket_registration}/edit",
- *     "delete-form" = "/admin/ticket/ticket_registration/{ticket_registration}/delete",
- *     "collection" = "/admin/ticket/ticket_registration",
+ *     "canonical" = "/ticket/registration/{ticket_registration}",
+ *     "edit-form" = "/ticket/registration/{ticket_registration}/edit",
+ *     "delete-form" = "/ticket/registration/{ticket_registration}/delete",
+ *     "collection" = "/ticket/registration",
  *   },
  *   field_ui_base_route = "entity.ticket_type.edit_form"
  * )
