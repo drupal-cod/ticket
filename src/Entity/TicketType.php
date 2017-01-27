@@ -77,6 +77,20 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
   protected $start_date;
 
   /**
+   * Maximum number of tickets per order.
+   *
+   * @var integer
+   */
+  protected $order_max;
+
+  /**
+   * Minimum number of tickets per order.
+   *
+   * @var integer
+   */
+  protected $order_min;
+
+  /**
    * Registration end date for this Ticket type.
    *
    * @var integer
@@ -102,6 +116,20 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
    */
   public function getQuantity() {
     return $this->quantity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOrderMax() {
+    return $this->order_max;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOrderMin() {
+    return $this->order_min;
   }
 
   /**
