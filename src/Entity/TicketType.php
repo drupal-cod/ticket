@@ -123,7 +123,10 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
    * {@inheritdoc}
    */
   public function isLocked() {
-    $locked = \Drupal::state()->get('ticket_type.locked');
-    return isset($locked[$this->id()]) ? $locked[$this->id()] : FALSE;
+    if (isset($this->ttid) && !empty($this->ttid)) {
+      return TRUE;
+    } else {
+      return FALSE;
+    }
   }
 }
