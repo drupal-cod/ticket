@@ -71,14 +71,6 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
   /**
    * {@inheritdoc}
    */
-  public function id()
-  {
-    return $this->trid;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getTicketType()
   {
     return $this->ticket_type;

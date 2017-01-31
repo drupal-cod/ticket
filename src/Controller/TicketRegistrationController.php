@@ -4,7 +4,9 @@ namespace Drupal\ticket\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\ticket\Entity\TicketTypeInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for Ticket registration routes.
@@ -17,6 +19,24 @@ class TicketRegistrationController extends ControllerBase implements ContainerIn
    */
   protected $renderer;
 
+  /**
+   * Constructs a NodeController object.
+   *
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer service.
+   */
+  public function __construct(RendererInterface $renderer) {
+    $this->renderer = $renderer;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+        $container->get('renderer')
+    );
+  }
 
   /**
    * Displays add ticket registration links for available ticket types.
@@ -69,9 +89,7 @@ class TicketRegistrationController extends ControllerBase implements ContainerIn
    *   A ticket registration submission form.
    */
   public function add(TicketTypeInterface $ticket_type) {
-    $ticket = $this->entityManager()->getStorage('ticket_registration')->create(array(
-        'ticket_type' => $ticket_type->id(),
-    ));
+    $ticket = $this->entityManager()->getStorage('ticket_registration')->create(array('ticket_type' => $ticket_type->id()));
 
     $form = $this->entityFormBuilder()->getForm($ticket);
 
