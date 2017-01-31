@@ -8,14 +8,12 @@ use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\ticket\Entity\TicketTypeInterface;
 
-
 /**
  * Determines access to for ticket registration add pages.
  *
  * @ingroup ticket_registration_access
  */
 class TicketRegistrationAddAccessCheck implements AccessInterface {
-
   /**
    * The entity manager.
    *
@@ -40,7 +38,8 @@ class TicketRegistrationAddAccessCheck implements AccessInterface {
    *   The currently logged in account.
    * @param \Drupal\ticket\Entity\TicketTypeInterface $ticket_type
    *   (optional) The ticket type. If not specified, access is allowed if there
-   *   exists at least one ticket type for which the user may create a ticket registration.
+   *   exists at least one ticket type for which the user may
+   *   create a ticket registration.
    *
    * @return string
    *   A \Drupal\Core\Access\AccessInterface constant value.
@@ -64,4 +63,5 @@ class TicketRegistrationAddAccessCheck implements AccessInterface {
     // No opinion.
     return AccessResult::neutral();
   }
+
 }

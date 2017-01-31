@@ -9,6 +9,9 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface TicketTypeInterface extends ConfigEntityInterface {
 
-  // Add get/set methods for your configuration properties here.
+  /**
+   * {@inheritdoc}
+   */
   public function isLocked();
+
 }

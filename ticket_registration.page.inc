@@ -8,8 +8,6 @@
  */
 
 use Drupal\Core\Render\Element;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 
 /**
  * Prepares variables for Ticket registration templates.
@@ -29,4 +27,5 @@ function template_preprocess_ticket_registration(array &$variables) {
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
   }
+
 }

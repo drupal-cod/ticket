@@ -14,17 +14,17 @@ ticket.ticket_type.*:
       type: text
       label: 'Description'
     quantity:
-      type: string
+      type: int
       label: 'Quantity of Tickets'
-    start_date:
+    startDate:
       type: string
       label: 'Registration Start Date'
-    end_date:
+    endDate:
       type: string
       label: 'Registration End Date'
-    order_max:
-      type: string
+    orderMax:
+      type: int
       label: 'Order Maximum'
-    order_min:
-      type: string
+    orderMin:
+      type: int
       label: 'Order Minimum'

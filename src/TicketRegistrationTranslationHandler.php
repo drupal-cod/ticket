@@ -9,6 +9,4 @@ use Drupal\content_translation\ContentTranslationHandler;
  */
 class TicketRegistrationTranslationHandler extends ContentTranslationHandler {
 
-  // Override here the needed methods from ContentTranslationHandler.
-
 }

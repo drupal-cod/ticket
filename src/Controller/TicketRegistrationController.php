@@ -51,10 +51,10 @@ class TicketRegistrationController extends ControllerBase implements ContainerIn
    */
   public function addPage() {
     $build = [
-        '#theme' => 'ticket_registration_add_list',
-        '#cache' => [
-            'tags' => $this->entityManager()->getDefinition('ticket_type')->getListCacheTags(),
-        ],
+      '#theme' => 'ticket_registration_add_list',
+      '#cache' => [
+        'tags' => $this->entityManager()->getDefinition('ticket_type')->getListCacheTags(),
+      ],
     ];
 
     $ticket = array();
@@ -65,7 +65,6 @@ class TicketRegistrationController extends ControllerBase implements ContainerIn
       if ($access->isAllowed()) {
         $ticket[$ticket_type->id()] = $ticket_type;
       }
-      //$this->renderer->addCacheableDependency($build, $access);
     }
 
     // Bypass the ticket_registration/add listing if only one content type is available.
@@ -108,4 +107,5 @@ class TicketRegistrationController extends ControllerBase implements ContainerIn
   public function addPageTitle(TicketTypeInterface $ticket_type) {
     return $this->t('Create @name', array('@name' => $ticket_type->label()));
   }
+
 }
