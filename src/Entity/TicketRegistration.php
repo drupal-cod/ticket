@@ -38,12 +38,12 @@ use Drupal\user\UserInterface;
  *   base_table = "ticket_registration",
  *   data_table = "ticket_registration_field_data",
  *   translatable = TRUE,
-  *   admin_permission = "administer ticket registration entities",
+ *   admin_permission = "administer ticket registration entities",
  *   entity_keys = {
  *     "id" = "trid",
  *     "label" = "name",
  *     "uuid" = "uuid",
- *     "uid" = "user_id",
+ *     "uid" = "uid",
  *     "langcode" = "langcode",
  *     "status" = "status",
  *     "bundle" = "ticket_type",
@@ -62,18 +62,17 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
 
   use EntityChangedTrait;
 
-  protected $user_id;
+  protected $uid;
 
   protected $trid;
 
-  protected $ticket_type;
+  protected $ticketType;
 
   /**
    * {@inheritdoc}
    */
-  public function getTicketType()
-  {
-    return $this->ticket_type;
+  public function getTicketType() {
+    return $this->ticketType;
   }
 
   /**
@@ -82,7 +81,7 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
     $values += array(
-      'user_id' => \Drupal::currentUser()->id(),
+      'uid' => \Drupal::currentUser()->id(),
     );
   }
 
@@ -127,21 +126,21 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
    * {@inheritdoc}
    */
   public function getOwner() {
-    return $this->get('user_id')->entity;
+    return $this->get('uid')->entity;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getOwnerId() {
-    return $this->get('user_id')->target_id;
+    return $this->get('uid')->target_id;
   }
 
   /**
    * {@inheritdoc}
    */
   public function setOwnerId($uid) {
-    $this->set('user_id', $uid);
+    $this->set('uid', $uid);
     return $this;
   }
 
@@ -149,7 +148,7 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
    * {@inheritdoc}
    */
   public function setOwner(UserInterface $account) {
-    $this->set('user_id', $account->id());
+    $this->set('uid', $account->id());
     return $this;
   }
 
@@ -174,7 +173,7 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
+    $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
       ->setDescription(t('The user ID of author of the Ticket registration entity.'))
       ->setRevisionable(TRUE)

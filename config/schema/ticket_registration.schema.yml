@@ -10,7 +10,7 @@ ticket.ticket_registration_type.*:
       label: 'Label'
     uuid:
       type: string
-    user_id:
+    uid:
       type: string
     langcode:
       type: string

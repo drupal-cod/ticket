@@ -30,17 +30,17 @@ class TicketTypeForm extends EntityForm {
     ];
 
     $form['ttid'] = array(
-        '#type' => 'machine_name',
-        '#default_value' => $ticket_type->id(),
-        '#maxlength' => EntityTypeInterface::BUNDLE_MAX_LENGTH,
-        '#disabled' => $ticket_type->isLocked(),
-        '#machine_name' => array(
-            'exists' => ['Drupal\ticket\Entity\TicketType', 'load'],
-            'source' => array('label'),
-        ),
-        '#description' => t('A unique machine-readable name for this ticket type. It must only contain lowercase letters, numbers, and underscores. This name will be used for constructing the URL of the %node-add page, in which underscores will be converted into hyphens.', array(
-            '%node-add' => t('Add content'),
-        )),
+      '#type' => 'machine_name',
+      '#default_value' => $ticket_type->id(),
+      '#maxlength' => EntityTypeInterface::BUNDLE_MAX_LENGTH,
+      '#disabled' => $ticket_type->isLocked(),
+      '#machine_name' => array(
+        'exists' => ['Drupal\ticket\Entity\TicketType', 'load'],
+        'source' => array('label'),
+      ),
+      '#description' => t('A unique machine-readable name for this ticket type. It must only contain lowercase letters, numbers, and underscores. This name will be used for constructing the URL of the %node-add page, in which underscores will be converted into hyphens.', array(
+        '%node-add' => t('Add content'),
+      )),
     );
 
     $form['description'] = array(
@@ -56,23 +56,23 @@ class TicketTypeForm extends EntityForm {
       '#default_value' => $ticket_type->getQuantity(),
     );
 
-    $form['order_min'] = array(
-        '#type' => 'number',
-        '#required' => TRUE,
-        '#min' => 0,
-        '#title' => $this->t('Min per order'),
-        '#description' => t('The minimum number of tickets per order.'),
-        '#default_value' => $ticket_type->getOrderMin(),
+    $form['orderMin'] = array(
+      '#type' => 'number',
+      '#required' => TRUE,
+      '#min' => 0,
+      '#title' => $this->t('Min per order'),
+      '#description' => t('The minimum number of tickets per order.'),
+      '#default_value' => $ticket_type->getOrderMin(),
     );
 
-    $form['order_max'] = array(
-        '#type' => 'number',
-        '#title' => $this->t('Max per order'),
-        '#description' => t('The maxiumum number of tickets per order. Leave blank for no maximum.'),
-        '#default_value' => $ticket_type->getOrderMax(),
+    $form['orderMax'] = array(
+      '#type' => 'number',
+      '#title' => $this->t('Max per order'),
+      '#description' => t('The maxiumum number of tickets per order. Leave blank for no maximum.'),
+      '#default_value' => $ticket_type->getOrderMax(),
     );
 
-    $form['start_date'] = array(
+    $form['startDate'] = array(
       '#type' => 'datetime',
       '#title' => $this->t('Registration Start'),
       '#date_year_range' => '0:20',
@@ -80,12 +80,12 @@ class TicketTypeForm extends EntityForm {
       '#default_value' => $ticket_type->getStartDate(),
     );
 
-    $form['end_date'] = array(
-        '#type' => 'datetime',
-        '#title' => $this->t('Registration End'),
-        '#date_year_range' => '0:20',
-        '#description' => t('The date and time when this ticket type will stop being available to order.'),
-        '#default_value' => $ticket_type->getEndDate(),
+    $form['endDate'] = array(
+      '#type' => 'datetime',
+      '#title' => $this->t('Registration End'),
+      '#date_year_range' => '0:20',
+      '#description' => t('The date and time when this ticket type will stop being available to order.'),
+      '#default_value' => $ticket_type->getEndDate(),
     );
 
     return $form;

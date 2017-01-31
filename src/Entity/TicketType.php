@@ -38,8 +38,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   }
  * )
  */
-class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
-{
+class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface {
 
   /**
    * The Ticket type ID.
@@ -65,37 +64,37 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
   /**
    * Quantity of Tickets for this Ticket type.
    *
-   * @var integer
+   * @var int
    */
   protected $quantity;
 
   /**
    * Registration start date for this Ticket type.
    *
-   * @var integer
+   * @var string
    */
-  protected $start_date;
+  protected $startDate;
 
   /**
    * Maximum number of tickets per order.
    *
-   * @var integer
+   * @var int
    */
-  protected $order_max;
+  protected $orderMax;
 
   /**
    * Minimum number of tickets per order.
    *
-   * @var integer
+   * @var int
    */
-  protected $order_min;
+  protected $orderMin;
 
   /**
    * Registration end date for this Ticket type.
    *
-   * @var integer
+   * @var string
    */
-  protected $end_date;
+  protected $endDate;
 
   /**
    * {@inheritdoc}
@@ -122,28 +121,28 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
    * {@inheritdoc}
    */
   public function getOrderMax() {
-    return $this->order_max;
+    return $this->orderMax;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getOrderMin() {
-    return $this->order_min;
+    return $this->orderMin;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getStartDate() {
-    return $this->start_date;
+    return $this->startDate;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getEndDate() {
-    return $this->end_date;
+    return $this->endDate;
   }
 
   /**
@@ -152,8 +151,10 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface
   public function isLocked() {
     if (isset($this->ttid) && !empty($this->ttid)) {
       return TRUE;
-    } else {
+    }
+    else {
       return FALSE;
     }
   }
+
 }

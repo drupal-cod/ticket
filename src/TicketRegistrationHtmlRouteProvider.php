@@ -81,4 +81,5 @@ class TicketRegistrationHtmlRouteProvider extends AdminHtmlRouteProvider {
       return $route;
     }
   }
+
 }
