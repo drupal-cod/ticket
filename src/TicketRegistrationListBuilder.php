@@ -31,7 +31,6 @@ class TicketRegistrationListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\ticket\Entity\TicketRegistration */
-    $row['id'] = $entity->id();
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
@@ -41,6 +40,7 @@ class TicketRegistrationListBuilder extends EntityListBuilder {
       )
     );
     $row['type'] = $entity->getType();
+    $row['user'] = $entity->getOwner()->getAccountName();
     return $row + parent::buildRow($entity);
   }
 

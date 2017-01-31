@@ -46,7 +46,7 @@ use Drupal\user\UserInterface;
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
  *     "status" = "status",
- *     "type" = "ticket_type",
+ *     "bundle" = "ticket_type",
  *   },
  *   bundle_entity_type = "ticket_type",
  *   links = {
@@ -61,6 +61,8 @@ use Drupal\user\UserInterface;
 class TicketRegistration extends ContentEntityBase implements TicketRegistrationInterface {
 
   use EntityChangedTrait;
+
+  protected $user_id;
 
   protected $trid;
 
