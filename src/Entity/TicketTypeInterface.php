@@ -11,6 +11,4 @@ interface TicketTypeInterface extends ConfigEntityInterface {
 
   // Add get/set methods for your configuration properties here.
   public function isLocked();
-
-  public function id();
 }
