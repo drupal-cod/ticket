@@ -1,0 +1,7 @@
+admin:
+  version: VERSION
+  css:
+    theme:
+      css/ticket.css: { weight: -10 }
+  dependencies:
+    - system/base

@@ -1,9 +1,9 @@
 name: 'Ticket'
-description: 'Tickets for attending an event.'
 type: module
+description: Tickets for attending an event.
 core: 8.x
+package: COD
 dependencies:
   - field
-  - node
-version: 8.x-1.0
-package: 'COD'
+  - datetime
+  - text
