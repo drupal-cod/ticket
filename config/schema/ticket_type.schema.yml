@@ -1,0 +1,30 @@
+ticket.ticket_type.*:
+  type: config_entity
+  label: 'Ticket type config'
+  mapping:
+    ttid:
+      type: string
+      label: 'Machine name'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    description:
+      type: text
+      label: 'Description'
+    quantity:
+      type: int
+      label: 'Quantity of Tickets'
+    startDate:
+      type: string
+      label: 'Registration Start Date'
+    endDate:
+      type: string
+      label: 'Registration End Date'
+    orderMax:
+      type: int
+      label: 'Order Maximum'
+    orderMin:
+      type: int
+      label: 'Order Minimum'
