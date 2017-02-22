@@ -7,7 +7,7 @@ entity.ticket_type.collection:
   weight: 99
   menu_name: admin
 
-# Ticket registration menu items definition
+# Ticket menu items definition
 tyicket_type_add:
   title: 'Add Ticket Type'
   route_name: entity.ticket_type.add_form
@@ -16,21 +16,21 @@ tyicket_type_add:
   weight: 100
   menu_name: admin
 
-# Ticket registration menu items definition
-entity.ticket_registration.collection:
-  title: 'Ticket Registrations'
-  route_name: entity.ticket_registration.collection
-  description: 'List Ticket registration entities'
+# Ticket menu items definition
+entity.ticket.collection:
+  title: 'Tickets'
+  route_name: entity.ticket.collection
+  description: 'List Ticket entities'
   parent: ticket
   weight: 100
   menu_name: admin
 
-# Ticket registration menu items definition
-ticket_registration_add:
-  title: 'Create Ticket Registration'
-  route_name: ticket_registration.add_page
-  description: 'Create Ticket Registration'
-  parent: entity.ticket_registration.collection
+# Ticket menu items definition
+ticket_add:
+  title: 'Create Ticket'
+  route_name: ticket.add_page
+  description: 'Create Ticket'
+  parent: entity.ticket.collection
   weight: 100
   menu_name: admin
 

@@ -31,7 +31,7 @@ function ticket_help($route_name, RouteMatchInterface $route_match) {
  */
 function ticket_theme() {
   return array(
-    'ticket_registration_add_list' => array(
+    'ticket_add_list' => array(
       'variables' => array('content' => NULL),
     ),
   );
@@ -40,37 +40,37 @@ function ticket_theme() {
 /**
 * Implements hook_theme_suggestions_HOOK().
 */
-function ticket_theme_suggestions_ticket_registration(array $variables) {
+function ticket_theme_suggestions_ticket(array $variables) {
   $suggestions = array();
-  $entity = $variables['elements']['#ticket_registration'];
+  $entity = $variables['elements']['#ticket'];
   $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
 
-  $suggestions[] = 'ticket_registration__' . $sanitized_view_mode;
-  $suggestions[] = 'ticket_registration__' . $entity->bundle();
-  $suggestions[] = 'ticket_registration__' . $entity->bundle() . '__' . $sanitized_view_mode;
-  $suggestions[] = 'ticket_registration__' . $entity->id();
-  $suggestions[] = 'ticket_registration__' . $entity->id() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $entity->bundle();
+  $suggestions[] = 'ticket__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $entity->id();
+  $suggestions[] = 'ticket__' . $entity->id() . '__' . $sanitized_view_mode;
   return $suggestions;
 }
 
   /**
    * Prepares variables for list of available ticket type templates.
    *
-   * Default template: ticket-registration-add-list.html.twig.
+   * Default template: ticket-add-list.html.twig.
    *
    * @param array $variables
    *   An associative array containing:
    *   - content: An array of ticket types.
    *
-   * @see ticket_registration_add_page()
+   * @see ticket_add_page()
    */
-  function template_preprocess_ticket_registration_add_list(&$variables) {
+  function template_preprocess_ticket_add_list(&$variables) {
     $variables['ticket_type'] = array();
     if (!empty($variables['content'])) {
       foreach ($variables['content'] as $ticket_type) {
         $variables['ticket_types'][$ticket_type->id()] = array(
             'ticket_type' => $ticket_type->id(),
-            'add_link' => \Drupal::l(t($ticket_type->label()), new Url('ticket_registration.add', array('ticket_type' => $ticket_type->id()))),
+            'add_link' => \Drupal::l(t($ticket_type->label()), new Url('ticket.add', array('ticket_type' => $ticket_type->id()))),
             'description' => array(
                 '#markup' => $ticket_type->getDescription(),
             ),

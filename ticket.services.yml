@@ -1,6 +1,6 @@
 services:
-  access_check.ticket_registration.add:
-    class: Drupal\ticket\Access\TicketRegistrationAddAccessCheck
+  access_check.ticket.add:
+    class: Drupal\ticket\Access\TicketAddAccessCheck
     arguments: ['@entity.manager']
     tags:
-      - { name: access_check, applies_to: _ticket_registration_add_access }
+      - { name: access_check, applies_to: _ticket_add_access }

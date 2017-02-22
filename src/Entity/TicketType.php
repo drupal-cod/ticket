@@ -23,7 +23,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   },
  *   config_prefix = "ticket_type",
  *   admin_permission = "administer site configuration",
- *   bundle_of = "ticket_registration",
+ *   bundle_of = "ticket",
  *   entity_keys = {
  *     "id" = "ttid",
  *     "label" = "label",

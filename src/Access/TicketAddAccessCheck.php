@@ -9,11 +9,11 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\ticket\Entity\TicketTypeInterface;
 
 /**
- * Determines access to for ticket registration add pages.
+ * Determines access to for Ticket add pages.
  *
- * @ingroup ticket_registration_access
+ * @ingroup ticket_access
  */
-class TicketRegistrationAddAccessCheck implements AccessInterface {
+class TicketAddAccessCheck implements AccessInterface {
   /**
    * The entity manager.
    *
@@ -39,13 +39,13 @@ class TicketRegistrationAddAccessCheck implements AccessInterface {
    * @param \Drupal\ticket\Entity\TicketTypeInterface $ticket_type
    *   (optional) The ticket type. If not specified, access is allowed if there
    *   exists at least one ticket type for which the user may
-   *   create a ticket registration.
+   *   create a Ticket.
    *
    * @return string
    *   A \Drupal\Core\Access\AccessInterface constant value.
    */
   public function access(AccountInterface $account, TicketTypeInterface $ticket_type = NULL) {
-    $access_control_handler = $this->entityManager->getAccessControlHandler('ticket_registration');
+    $access_control_handler = $this->entityManager->getAccessControlHandler('ticket');
     // If checking whether a node of a particular type may be created.
     if ($account->hasPermission('administer ticket types')) {
       return AccessResult::allowed()->cachePerPermissions();

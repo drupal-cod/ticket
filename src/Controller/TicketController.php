@@ -9,9 +9,9 @@ use Drupal\ticket\Entity\TicketTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Returns responses for Ticket registration routes.
+ * Returns responses for Ticket routes.
  */
-class TicketRegistrationController extends ControllerBase implements ContainerInjectionInterface {
+class TicketController extends ControllerBase implements ContainerInjectionInterface {
   /**
    * The renderer service.
    *
@@ -39,19 +39,19 @@ class TicketRegistrationController extends ControllerBase implements ContainerIn
   }
 
   /**
-   * Displays add ticket registration links for available ticket types.
+   * Displays add ticket links for available ticket types.
    *
-   * Redirects to ticket_registration/add/[ticket_type] if only one ticket type is available.
+   * Redirects to ticket/add/[ticket_type] if only one ticket type is available.
    *
    * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
    *   A render array for a list of the ticket types that can be added; however,
    *   if there is only one ticket type defined for the site, the function
-   *   will return a RedirectResponse to the ticket registration add page for that one ticket
+   *   will return a RedirectResponse to the Ticket add page for that one ticket
    *   type.
    */
   public function addPage() {
     $build = [
-      '#theme' => 'ticket_registration_add_list',
+      '#theme' => 'ticket_add_list',
       '#cache' => [
         'tags' => $this->entityManager()->getDefinition('ticket_type')->getListCacheTags(),
       ],
@@ -67,10 +67,10 @@ class TicketRegistrationController extends ControllerBase implements ContainerIn
       }
     }
 
-    // Bypass the ticket_registration/add listing if only one content type is available.
+    // Bypass the ticket/add listing if only one content type is available.
     if (count($ticket) == 1) {
       $ticket_type = array_shift($ticket);
-      return $this->redirect('ticket_registration.add', array('ticket_type' => $ticket_type->id()));
+      return $this->redirect('ticket.add', array('ticket_type' => $ticket_type->id()));
     }
 
     $build['#content'] = $ticket;
@@ -79,16 +79,16 @@ class TicketRegistrationController extends ControllerBase implements ContainerIn
   }
 
   /**
-   * Provides the ticket registration submission form.
+   * Provides the ticket submission form.
    *
    * @param \Drupal\ticket\Entity\TicketTypeInterface $ticket_type
-   *   The ticket type entity for the ticket registration.
+   *   The ticket type entity for the ticket.
    *
    * @return array
-   *   A ticket registration submission form.
+   *   A ticket submission form.
    */
   public function add(TicketTypeInterface $ticket_type) {
-    $ticket = $this->entityManager()->getStorage('ticket_registration')->create(array('ticket_type' => $ticket_type->id()));
+    $ticket = $this->entityManager()->getStorage('ticket')->create(array('ticket_type' => $ticket_type->id()));
 
     $form = $this->entityFormBuilder()->getForm($ticket);
 
@@ -96,13 +96,13 @@ class TicketRegistrationController extends ControllerBase implements ContainerIn
   }
 
   /**
-   * The _title_callback for the ticket_registration.add route.
+   * The _title_callback for the ticket.add route.
    *
    * @param \Drupal\ticket\Entity\TicketTypeInterface $ticket_type
-   *   The current ticket registration.
+   *   The current Ticket.
    *
    * @return string
-   *   The ticket registration title.
+   *   The Ticket title.
    */
   public function addPageTitle(TicketTypeInterface $ticket_type) {
     return $this->t('Create @name', array('@name' => $ticket_type->label()));

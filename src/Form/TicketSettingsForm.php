@@ -6,13 +6,13 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class TicketRegistrationSettingsForm.
+ * Class TicketSettingsForm.
  *
  * @package Drupal\ticket\Form
  *
  * @ingroup ticket
  */
-class TicketRegistrationSettingsForm extends FormBase {
+class TicketSettingsForm extends FormBase {
 
   /**
    * Returns a unique string identifying the form.
@@ -21,7 +21,7 @@ class TicketRegistrationSettingsForm extends FormBase {
    *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'TicketRegistration_settings';
+    return 'Ticket_settings';
   }
 
   /**
@@ -37,7 +37,7 @@ class TicketRegistrationSettingsForm extends FormBase {
   }
 
   /**
-   * Defines the settings form for Ticket registration entities.
+   * Defines the settings form for Ticket entities.
    *
    * @param array $form
    *   An associative array containing the structure of the form.
@@ -48,7 +48,7 @@ class TicketRegistrationSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['TicketRegistration_settings']['#markup'] = 'Settings form for Ticket registration entities. Manage field settings here.';
+    $form['Ticket_settings']['#markup'] = 'Settings form for Ticket entities. Manage field settings here.';
     return $form;
   }
 

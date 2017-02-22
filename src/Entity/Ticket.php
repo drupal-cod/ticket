@@ -10,37 +10,37 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the Ticket registration entity.
+ * Defines the Ticket entity.
  *
  * @ingroup ticket
  *
  * @ContentEntityType(
- *   id = "ticket_registration",
- *   label = @Translation("Ticket registration"),
+ *   id = "ticket",
+ *   label = @Translation("Ticket"),
  *   bundle_label = @Translation("Ticket type"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\ticket\TicketRegistrationListBuilder",
- *     "views_data" = "Drupal\ticket\Entity\TicketRegistrationViewsData",
- *     "translation" = "Drupal\ticket\TicketRegistrationTranslationHandler",
+ *     "list_builder" = "Drupal\ticket\TicketListBuilder",
+ *     "views_data" = "Drupal\ticket\Entity\TicketViewsData",
+ *     "translation" = "Drupal\ticket\TicketTranslationHandler",
  *
  *     "form" = {
- *       "default" = "Drupal\ticket\Form\TicketRegistrationForm",
- *       "add" = "Drupal\ticket\Form\TicketRegistrationForm",
- *       "edit" = "Drupal\ticket\Form\TicketRegistrationForm",
- *       "delete" = "Drupal\ticket\Form\TicketRegistrationDeleteForm",
+ *       "default" = "Drupal\ticket\Form\TicketForm",
+ *       "add" = "Drupal\ticket\Form\TicketForm",
+ *       "edit" = "Drupal\ticket\Form\TicketForm",
+ *       "delete" = "Drupal\ticket\Form\TicketDeleteForm",
  *     },
- *     "access" = "Drupal\ticket\TicketRegistrationAccessControlHandler",
+ *     "access" = "Drupal\ticket\TicketAccessControlHandler",
  *     "route_provider" = {
- *       "html" = "Drupal\ticket\TicketRegistrationHtmlRouteProvider",
+ *       "html" = "Drupal\ticket\TicketHtmlRouteProvider",
  *     },
  *   },
- *   base_table = "ticket_registration",
- *   data_table = "ticket_registration_field_data",
+ *   base_table = "ticket",
+ *   data_table = "ticket_field_data",
  *   translatable = TRUE,
- *   admin_permission = "administer ticket registration entities",
+ *   admin_permission = "administer ticket entities",
  *   entity_keys = {
- *     "id" = "trid",
+ *     "id" = "ticket_id",
  *     "label" = "name",
  *     "uuid" = "uuid",
  *     "uid" = "uid",
@@ -50,21 +50,21 @@ use Drupal\user\UserInterface;
  *   },
  *   bundle_entity_type = "ticket_type",
  *   links = {
- *     "canonical" = "/ticket/registration/{ticket_registration}",
- *     "edit-form" = "/ticket/registration/{ticket_registration}/edit",
- *     "delete-form" = "/ticket/registration/{ticket_registration}/delete",
- *     "collection" = "/ticket/registration",
+ *     "canonical" = "/ticket/tickets/{ticket}",
+ *     "edit-form" = "/ticket/tickets/{ticket}/edit",
+ *     "delete-form" = "/ticket/tickets/{ticket}/delete",
+ *     "collection" = "/ticket/tickets",
  *   },
  *   field_ui_base_route = "entity.ticket_type.edit_form"
  * )
  */
-class TicketRegistration extends ContentEntityBase implements TicketRegistrationInterface {
+class Ticket extends ContentEntityBase implements TicketInterface {
 
   use EntityChangedTrait;
 
   protected $uid;
 
-  protected $trid;
+  protected $ticket_id;
 
   protected $ticketType;
 
@@ -175,7 +175,7 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
 
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Ticket registration entity.'))
+      ->setDescription(t('The user ID of author of the Ticket entity.'))
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
@@ -200,7 +200,7 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Ticket registration entity.'))
+      ->setDescription(t('The name of the Ticket entity.'))
       ->setSettings(array(
         'max_length' => 50,
         'text_processing' => 0,
@@ -220,7 +220,7 @@ class TicketRegistration extends ContentEntityBase implements TicketRegistration
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
-      ->setDescription(t('A boolean indicating whether the Ticket registration is published.'))
+      ->setDescription(t('A boolean indicating whether the Ticket is published.'))
       ->setDefaultValue(TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')

@@ -1,10 +1,10 @@
-ticket.ticket_registration_type.*:
+ticket.ticket_type.*:
   type: config_entity
-  label: 'Ticket registration type config'
+  label: 'Ticket type config'
   mapping:
-    trid:
+    ticket_id:
       type: string
-      label: 'Ticket Registration ID'
+      label: 'Ticket ID'
     label:
       type: label
       label: 'Label'

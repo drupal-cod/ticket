@@ -1,22 +1,22 @@
-ticket_registration.add_page:
-  path: '/ticket/registration/add'
+ticket.add_page:
+  path: '/ticket/tickets/add'
   defaults:
-    _title: 'Add Ticket registration'
-    _controller: '\Drupal\ticket\Controller\TicketRegistrationController::addPage'
+    _title: 'Add Ticket'
+    _controller: '\Drupal\ticket\Controller\TicketController::addPage'
   options:
-    _ticket_registration_operation_route: TRUE
+    _ticket_operation_route: TRUE
   requirements:
-    _ticket_registration_add_access: 'ticket_registration'
+    _ticket_add_access: 'ticket'
 
-ticket_registration.add:
-  path: '/ticket/registration/add/{ticket_type}'
+ticket.add:
+  path: '/ticket/tickets/add/{ticket_type}'
   defaults:
-    _controller: '\Drupal\ticket\Controller\TicketRegistrationController::add'
-    _title_callback: '\Drupal\ticket\Controller\TicketRegistrationController::addPageTitle'
+    _controller: '\Drupal\ticket\Controller\TicketController::add'
+    _title_callback: '\Drupal\ticket\Controller\TicketController::addPageTitle'
   requirements:
-    _ticket_registration_add_access: 'ticket_registration:{ticket_type}'
+    _ticket_add_access: 'ticket:{ticket_type}'
   options:
-    _ticket_registration_operation_route: TRUE
+    _ticket_operation_route: TRUE
     parameters:
       ticket_type:
         with_config_overrides: TRUE

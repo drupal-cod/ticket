@@ -1,17 +1,17 @@
-# Ticket registration routing definition
-entity.ticket_registration.canonical:
-  route_name: entity.ticket_registration.canonical
-  base_route: entity.ticket_registration.canonical
+# Ticket routing definition
+entity.ticket.canonical:
+  route_name: entity.ticket.canonical
+  base_route: entity.ticket.canonical
   title: 'View'
 
-entity.ticket_registration.edit_form:
-  route_name: entity.ticket_registration.edit_form
-  base_route: entity.ticket_registration.canonical
+entity.ticket.edit_form:
+  route_name: entity.ticket.edit_form
+  base_route: entity.ticket.canonical
   title: Edit
 
-entity.ticket_registration.delete_form:
-  route_name:  entity.ticket_registration.delete_form
-  base_route:  entity.ticket_registration.canonical
+entity.ticket.delete_form:
+  route_name:  entity.ticket.delete_form
+  base_route:  entity.ticket.canonical
   title: Delete
   weight: 10
 
