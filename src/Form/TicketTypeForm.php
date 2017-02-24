@@ -43,51 +43,6 @@ class TicketTypeForm extends EntityForm {
       )),
     );
 
-    $form['description'] = array(
-      '#type' => 'textarea',
-      '#title' => $this->t('Description'),
-      '#default_value' => $ticket_type->getDescription(),
-    );
-
-    $form['quantity'] = array(
-      '#type' => 'number',
-      '#title' => $this->t('Total Quantity'),
-      '#description' => t('The total number of tickets available. Leave blank for no limit.'),
-      '#default_value' => $ticket_type->getQuantity(),
-    );
-
-    $form['orderMin'] = array(
-      '#type' => 'number',
-      '#required' => TRUE,
-      '#min' => 0,
-      '#title' => $this->t('Min per order'),
-      '#description' => t('The minimum number of tickets per order.'),
-      '#default_value' => $ticket_type->getOrderMin(),
-    );
-
-    $form['orderMax'] = array(
-      '#type' => 'number',
-      '#title' => $this->t('Max per order'),
-      '#description' => t('The maxiumum number of tickets per order. Leave blank for no maximum.'),
-      '#default_value' => $ticket_type->getOrderMax(),
-    );
-
-    $form['startDate'] = array(
-      '#type' => 'datetime',
-      '#title' => $this->t('Registration Start'),
-      '#date_year_range' => '0:20',
-      '#description' => t('The date and time when this ticket type will be available to order.'),
-      '#default_value' => $ticket_type->getStartDate(),
-    );
-
-    $form['endDate'] = array(
-      '#type' => 'datetime',
-      '#title' => $this->t('Registration End'),
-      '#date_year_range' => '0:20',
-      '#description' => t('The date and time when this ticket type will stop being available to order.'),
-      '#default_value' => $ticket_type->getEndDate(),
-    );
-
     return $form;
   }
 
@@ -102,6 +57,7 @@ class TicketTypeForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
+        add_default_ticket_fields($ticket_type);
         drupal_set_message($this->t('Created the %label Ticket type.', [
           '%label' => $ticket_type->label(),
         ]));
