@@ -2,13 +2,15 @@
 
 /**
  * @file
- * Contains ticket.module..
+ * Contains ticket.module.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\ticket\Entity\TicketType;
 use Drupal\ticket\Entity\TicketTypeInterface;
+use Drupal\ticket\Entity\RegistrationTypeInterface;
 use Drupal\Core\Url;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Implements hook_help().
@@ -34,6 +36,9 @@ function ticket_theme() {
     'ticket_add_list' => array(
       'variables' => array('content' => NULL),
     ),
+    'registration_add_list' => array(
+      'variables' => array('content' => NULL),
+    ),
   );
 }
 
@@ -42,39 +47,80 @@ function ticket_theme() {
 */
 function ticket_theme_suggestions_ticket(array $variables) {
   $suggestions = array();
-  $entity = $variables['elements']['#ticket'];
-  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+  $ticket = $variables['elements']['#ticket'];
+  $ticket_sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
 
-  $suggestions[] = 'ticket__' . $sanitized_view_mode;
-  $suggestions[] = 'ticket__' . $entity->bundle();
-  $suggestions[] = 'ticket__' . $entity->bundle() . '__' . $sanitized_view_mode;
-  $suggestions[] = 'ticket__' . $entity->id();
-  $suggestions[] = 'ticket__' . $entity->id() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $ticket_sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $ticket->bundle();
+  $suggestions[] = 'ticket__' . $ticket->bundle() . '__' . $ticket_sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $ticket->id();
+  $suggestions[] = 'ticket__' . $ticket->id() . '__' . $ticket_sanitized_view_mode;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function ticket_theme_suggestions_registration(array $variables) {
+  $registration = $variables['elements']['#registration'];
+  $registration_sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'registration__' . $registration_sanitized_view_mode;
+  $suggestions[] = 'registration__' . $registration->bundle();
+  $suggestions[] = 'registration__' . $registration->bundle() . '__' . $registration_sanitized_view_mode;
+  $suggestions[] = 'registration__' . $registration->id();
+  $suggestions[] = 'registration__' . $registration->id() . '__' . $registration_sanitized_view_mode;
   return $suggestions;
 }
 
-  /**
-   * Prepares variables for list of available ticket type templates.
-   *
-   * Default template: ticket-add-list.html.twig.
-   *
-   * @param array $variables
-   *   An associative array containing:
-   *   - content: An array of ticket types.
-   *
-   * @see ticket_add_page()
-   */
-  function template_preprocess_ticket_add_list(&$variables) {
-    $variables['ticket_type'] = array();
-    if (!empty($variables['content'])) {
-      foreach ($variables['content'] as $ticket_type) {
-        $variables['ticket_types'][$ticket_type->id()] = array(
-            'ticket_type' => $ticket_type->id(),
-            'add_link' => \Drupal::l(t($ticket_type->label()), new Url('ticket.add', array('ticket_type' => $ticket_type->id()))),
-            'description' => array(
-                '#markup' => $ticket_type->getDescription(),
-            ),
-        );
-      }
+/**
+ * Prepares variables for list of available ticket type templates.
+ *
+ * Default template: ticket-add-list.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - content: An array of ticket types.
+ *
+ * @see ticket_add_page()
+ */
+function template_preprocess_ticket_add_list(&$variables) {
+  $variables['ticket_type'] = array();
+  if (!empty($variables['content'])) {
+    foreach ($variables['content'] as $ticket_type) {
+      $variables['ticket_types'][$ticket_type->id()] = array(
+        'ticket_type' => $ticket_type->id(),
+        'add_link' => \Drupal::l(t($ticket_type->label()), new Url('ticket.add', array('ticket_type' => $ticket_type->id()))),
+        'description' => array(
+          '#markup' => $ticket_type->getDescription(),
+        ),
+      );
     }
   }
+}
+
+/**
+ * Prepares variables for list of available registration type templates.
+ *
+ * Default template: registration-add-list.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - content: An array of registration types.
+ *
+ * @see registration_add_page()
+ */
+function template_preprocess_registration_add_list(&$variables) {
+  $variables['registration_type'] = array();
+  if (!empty($variables['content'])) {
+    foreach ($variables['content'] as $registration_type) {
+      $variables['registration_types'][$registration_type->id()] = array(
+        'registration_type' => $registration_type->id(),
+        'add_link' => \Drupal::l(t($registration_type->label()), new Url('registration.add', array('registration_type' => $registration_type->id()))),
+        'description' => array(
+          '#markup' => $registration_type->getDescription(),
+        ),
+      );
+    }
+  }
+}
+

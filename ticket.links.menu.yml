@@ -40,3 +40,39 @@ ticket:
   route_name: entity.ticket_type.collection
   parent: system.admin
   weight: -10
+
+# Registration type menu items definition
+entity.registration_type.collection:
+  title: 'Registration Types'
+  route_name: entity.registration_type.collection
+  description: 'List Registration type (bundles)'
+  parent: ticket
+  weight: 99
+  menu_name: admin
+
+# Registration menu items definition
+registration_type_add:
+  title: 'Add Registration Type'
+  route_name: entity.registration_type.add_form
+  description: 'Create Registration Type'
+  parent: entity.registration_type.collection
+  weight: 100
+  menu_name: admin
+
+# Registration menu items definition
+entity.registration.collection:
+  title: 'Registrations'
+  route_name: entity.registration.collection
+  description: 'List Registration entities'
+  parent: ticket
+  weight: 100
+  menu_name: admin
+
+# Registration menu items definition
+registration_add:
+  title: 'Create Registration'
+  route_name: registration.add_page
+  description: 'Create Registration'
+  parent: entity.registration.collection
+  weight: 100
+  menu_name: admin

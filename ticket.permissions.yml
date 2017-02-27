@@ -20,3 +20,26 @@ view published Ticket entities:
 
 view unpublished Ticket entities:
   title: 'View unpublished Ticket entities'
+
+add Registration entities:
+  title: 'Create new Registration entities'
+
+administer Registration entities:
+  title: 'Administer Registration entities'
+  description: 'Allow to access the administration form to configure Registration entities.'
+  restrict access: true
+
+delete Registration entities:
+  title: 'Delete Registration entities'
+
+edit Registration entities:
+  title: 'Edit Registration entities'
+
+access Registration overview:
+  title: 'Access the Registration overview page'
+
+view published Registration entities:
+  title: 'View published Registration entities'
+
+view unpublished Registration entities:
+  title: 'View unpublished Registration entities'
