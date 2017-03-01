@@ -57,7 +57,6 @@ class TicketTypeForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        add_default_ticket_fields($ticket_type);
         drupal_set_message($this->t('Created the %label Ticket type.', [
           '%label' => $ticket_type->label(),
         ]));
