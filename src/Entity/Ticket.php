@@ -64,9 +64,18 @@ class Ticket extends ContentEntityBase implements TicketInterface {
 
   protected $uid;
 
+  protected $id;
+
   protected $ticket_id;
 
   protected $ticketType;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTicketId() {
+    return $this->id;
+  }
 
   /**
    * {@inheritdoc}
