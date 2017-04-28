@@ -228,5 +228,141 @@ function createTrid($entity) {
 */
 
 function createLabel($entity) {
-return $entity->getName() . " Registration";
+  return $entity->getName() . " Registration";
 }
+
+
+/**
+ * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
+ * @var string $label
+ * @return \Drupal\field\Entity\FieldConfig $field
+ */
+function ticket_type_add_registration(TicketTypeInterface $ticketType, $label = "Registration") {
+  // Add or remove the registration type field, as needed.
+  $field_storage = FieldStorageConfig::loadByName('ticket', 'field_ticket_registration_type');
+  $field = FieldConfig::loadByName('ticket', $ticketType->id(), 'field_ticket_registration_type');
+
+  if (empty($field)) {
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $ticketType->id(),
+      'label' => $label,
+      'settings' => array('display_summary' => TRUE),
+    ]);
+    $field->save();
+  }
+
+  return $field;
+}
+
+/**
+ * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
+ * @var string $label
+ * @return \Drupal\field\Entity\FieldConfig $field
+ */
+function ticket_type_add_dates(TicketTypeInterface $ticketType, $label = "Registration Dates") {
+  // Add or remove the registration dates field, as needed.
+  $field_storage = FieldStorageConfig::loadByName('ticket', 'field_ticket_registration_dates');
+  $field = FieldConfig::loadByName('ticket', $ticketType->id(), 'field_ticket_registration_dates');
+
+  if (empty($field)) {
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $ticketType->id(),
+      'label' => $label,
+      'settings' => array('display_summary' => TRUE),
+    ]);
+    $field->save();
+  }
+
+  // Assign widget settings for the 'default' form mode.
+  entity_get_form_display('ticket', $ticketType->id(), 'default')
+    ->setComponent('field_ticket_registration_dates', [
+      'type' => 'daterange_default',
+    ])
+    ->save();
+
+  return $field;
+}
+
+/**
+ * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
+ * @var string $label
+ * @return \Drupal\field\Entity\FieldConfig $field
+ */
+  function ticket_type_add_quantity(TicketTypeInterface $ticketType, $label = "Quantity of Tickets") {
+    // Add or remove the body field, as needed.
+    $field_storage = FieldStorageConfig::loadByName('ticket', 'field_ticket_quantity');
+    $field = FieldConfig::loadByName('ticket', $ticketType->id(), 'field_ticket_quantity');
+
+    if (empty($field)) {
+      $field = FieldConfig::create([
+        'field_storage' => $field_storage,
+        'bundle' => $ticketType->id(),
+        'label' => $label,
+        'settings' => array('display_summary' => TRUE),
+      ]);
+      $field->save();
+    }
+
+    // Assign widget settings for the 'default' form mode.
+    entity_get_form_display('ticket', $ticketType->id(), 'default')
+      ->setComponent('field_ticket_quantity', [
+        'type' => 'string_textfield',
+      ])
+      ->save();
+
+    return $field;
+  }
+
+/**
+ * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
+ * @var string $label
+ * @return \Drupal\field\Entity\FieldConfig $field
+ */
+function ticket_type_add_description(TicketTypeInterface $ticketType, $label = "Description") {
+  // Add or remove the body field, as needed.
+  $field_storage = FieldStorageConfig::loadByName('ticket', 'field_ticket_description');
+  $field = FieldConfig::loadByName('ticket', $ticketType->id(), 'field_ticket_description');
+
+  if (empty($field)) {
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $ticketType->id(),
+      'label' => $label,
+      'settings' => array('display_summary' => TRUE),
+    ]);
+    $field->save();
+  }
+
+  // Assign widget settings for the 'default' form mode.
+  entity_get_form_display('ticket', $ticketType->id(), 'default')
+    ->setComponent('field_ticket_description', [
+      'type' => 'text_textarea_with_summary',
+    ])
+    ->save();
+
+  // Assign display settings for the 'default' and 'teaser' view modes.
+  entity_get_display('ticket', $ticketType->id(), 'default')
+    ->setComponent('field_ticket_description', [
+      'label' => 'hidden',
+      'type' => 'text_default',
+    ])
+    ->save();
+
+  // The teaser view mode is created by the Standard profile and therefore
+  // might not exist.
+  $view_modes = \Drupal::entityManager()->getViewModes('ticket');
+  if (isset($view_modes['teaser'])) {
+    entity_get_display('ticket', $ticketType->id(), 'teaser')
+      ->setComponent('field_ticket_description', [
+        'label' => 'hidden',
+        'type' => 'text_summary_or_trimmed',
+      ])
+      ->save();
+  }
+
+  return $field;
+}
+
+

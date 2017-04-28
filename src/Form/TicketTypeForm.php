@@ -57,6 +57,10 @@ class TicketTypeForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
+        ticket_type_add_description($ticket_type);
+        ticket_type_add_registration($ticket_type);
+        ticket_type_add_quantity($ticket_type);
+        ticket_type_add_dates($ticket_type);
         drupal_set_message($this->t('Created the %label Ticket type.', [
           '%label' => $ticket_type->label(),
         ]));

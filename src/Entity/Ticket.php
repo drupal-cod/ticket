@@ -119,6 +119,14 @@ class Ticket extends ContentEntityBase implements TicketInterface {
   /**
    * {@inheritdoc}
    */
+  public function setRegistrationType($registration) {
+    $this->set('field_ticket_registration_type', $registration);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }

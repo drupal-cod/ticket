@@ -78,6 +78,13 @@ class RegistrationType extends ConfigEntityBundleBase implements RegistrationTyp
   /**
    * {@inheritdoc}
    */
+  public function getLabel() {
+    return $this->label;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function isLocked() {
     if (isset($this->trid) && !empty($this->trid)) {
       return TRUE;

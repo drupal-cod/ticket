@@ -7,4 +7,5 @@ dependencies:
   - field
   - node
   - datetime
+  - datetime_range
   - text

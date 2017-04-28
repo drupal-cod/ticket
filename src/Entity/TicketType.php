@@ -78,6 +78,13 @@ class TicketType extends ConfigEntityBundleBase implements TicketTypeInterface {
   /**
    * {@inheritdoc}
    */
+  public function getLabel() {
+    return $this->label;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function isLocked() {
     if (isset($this->ttid) && !empty($this->ttid)) {
       return TRUE;
