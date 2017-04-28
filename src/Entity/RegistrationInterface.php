@@ -73,7 +73,8 @@ interface RegistrationInterface extends ContentEntityInterface, EntityChangedInt
    * Sets the published status of a Registration.
    *
    * @param bool $published
-   *   TRUE to set this Registration to published, FALSE to set it to unpublished.
+   *   TRUE to set this Registration to published,
+   *   FALSE to set it to unpublished.
    *
    * @return \Drupal\ticket\Entity\RegistrationInterface
    *   The called Registration entity.

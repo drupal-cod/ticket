@@ -34,9 +34,9 @@ class TicketListBuilder extends EntityListBuilder {
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
-        'entity.ticket.edit_form', array(
+        'entity.ticket.edit_form', [
           'ticket' => $entity->id(),
-        )
+        ]
       )
     );
     $row['type'] = $entity->getType();

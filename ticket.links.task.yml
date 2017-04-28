@@ -31,4 +31,3 @@ entity.registration.delete_form:
   base_route:  entity.registration.canonical
   title: Delete
   weight: 10
-

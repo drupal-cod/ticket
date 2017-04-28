@@ -40,7 +40,7 @@ use Drupal\user\UserInterface;
  *   translatable = TRUE,
  *   admin_permission = "administer registration entities",
  *   entity_keys = {
- *     "id" = "registration_id",
+ *     "id" = "registrationId",
  *     "label" = "name",
  *     "uuid" = "uuid",
  *     "uid" = "uid",
@@ -64,7 +64,7 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
 
   protected $uid;
 
-  protected $registration_id;
+  protected $registrationId;
 
   protected $registrationType;
 
@@ -80,9 +80,9 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
    */
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
-    $values += array(
+    $values += [
       'uid' => \Drupal::currentUser()->id(),
-    );
+    ];
   }
 
   /**
@@ -180,41 +180,41 @@ class Registration extends ContentEntityBase implements RegistrationInterface {
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
       ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'author',
         'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'weight' => 5,
-        'settings' => array(
+        'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
           'autocomplete_type' => 'tags',
           'placeholder' => '',
-        ),
-      ))
+        ],
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Registration entity.'))
-      ->setSettings(array(
+      ->setSettings([
         'max_length' => 50,
         'text_processing' => 0,
-      ))
+      ])
       ->setDefaultValue('')
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => -4,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -4,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 

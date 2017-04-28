@@ -41,8 +41,8 @@ class RegistrationForm extends ContentEntityForm {
           '%label' => $registration->label(),
         ]));
     }
-    $form_state->setValue('registration_id', $registration->id());
-    $form_state->set('registration_id', $registration->id());
+    $form_state->setValue('registrationId', $registration->id());
+    $form_state->set('registrationId', $registration->id());
     $form_state->setRedirect('entity.registration.canonical', ['registration' => $registration->id()]);
   }
 

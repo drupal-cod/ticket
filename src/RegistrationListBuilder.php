@@ -34,9 +34,9 @@ class RegistrationListBuilder extends EntityListBuilder {
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
-        'entity.registration.edit_form', array(
+        'entity.registration.edit_form', [
           'registration' => $entity->id(),
-        )
+        ]
       )
     );
     $row['type'] = $entity->getType();

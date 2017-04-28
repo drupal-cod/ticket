@@ -57,7 +57,7 @@ class TicketController extends ControllerBase implements ContainerInjectionInter
       ],
     ];
 
-    $ticket = array();
+    $ticket = [];
 
     // Only use node types the user has access to.
     foreach ($this->entityManager()->getStorage('ticket_type')->loadMultiple() as $ticket_type) {
@@ -70,7 +70,7 @@ class TicketController extends ControllerBase implements ContainerInjectionInter
     // Bypass the ticket/add listing if only one content type is available.
     if (count($ticket) == 1) {
       $ticket_type = array_shift($ticket);
-      return $this->redirect('ticket.add', array('ticket_type' => $ticket_type->id()));
+      return $this->redirect('ticket.add', ['ticket_type' => $ticket_type->id()]);
     }
 
     $build['#content'] = $ticket;
@@ -88,7 +88,7 @@ class TicketController extends ControllerBase implements ContainerInjectionInter
    *   A ticket submission form.
    */
   public function add(TicketTypeInterface $ticket_type) {
-    $ticket = $this->entityManager()->getStorage('ticket')->create(array('ticket_type' => $ticket_type->id()));
+    $ticket = $this->entityManager()->getStorage('ticket')->create(['ticket_type' => $ticket_type->id()]);
 
     $form = $this->entityFormBuilder()->getForm($ticket);
 
@@ -105,7 +105,7 @@ class TicketController extends ControllerBase implements ContainerInjectionInter
    *   The Ticket title.
    */
   public function addPageTitle(TicketTypeInterface $ticket_type) {
-    return $this->t('Create @name', array('@name' => $ticket_type->label()));
+    return $this->t('Create @name', ['@name' => $ticket_type->label()]);
   }
 
 }

@@ -29,19 +29,19 @@ class TicketTypeForm extends EntityForm {
       '#required' => TRUE,
     ];
 
-    $form['ttid'] = array(
+    $form['ttid'] = [
       '#type' => 'machine_name',
       '#default_value' => $ticket_type->id(),
       '#maxlength' => EntityTypeInterface::BUNDLE_MAX_LENGTH,
       '#disabled' => $ticket_type->isLocked(),
-      '#machine_name' => array(
+      '#machine_name' => [
         'exists' => ['Drupal\ticket\Entity\TicketType', 'load'],
-        'source' => array('label'),
-      ),
-      '#description' => t('A unique machine-readable name for this ticket type. It must only contain lowercase letters, numbers, and underscores. This name will be used for constructing the URL of the %node-add page, in which underscores will be converted into hyphens.', array(
+        'source' => ['label'],
+      ],
+      '#description' => t('A unique machine-readable name for this ticket type. It must only contain lowercase letters, numbers, and underscores. This name will be used for constructing the URL of the %node-add page, in which underscores will be converted into hyphens.', [
         '%node-add' => t('Add content'),
-      )),
-    );
+      ]),
+    ];
 
     return $form;
   }

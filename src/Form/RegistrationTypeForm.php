@@ -29,19 +29,19 @@ class RegistrationTypeForm extends EntityForm {
       '#required' => TRUE,
     ];
 
-    $form['trid'] = array(
+    $form['trid'] = [
       '#type' => 'machine_name',
       '#default_value' => $registration_type->id(),
       '#maxlength' => EntityTypeInterface::BUNDLE_MAX_LENGTH,
       '#disabled' => $registration_type->isLocked(),
-      '#machine_name' => array(
+      '#machine_name' => [
         'exists' => ['Drupal\ticket\Entity\RegistrationType', 'load'],
-        'source' => array('label'),
-      ),
-      '#description' => t('A unique machine-readable name for this Registration type. It must only contain lowercase letters, numbers, and underscores. This name will be used for constructing the URL of the %node-add page, in which underscores will be converted into hyphens.', array(
+        'source' => ['label'],
+      ],
+      '#description' => t('A unique machine-readable name for this Registration type. It must only contain lowercase letters, numbers, and underscores. This name will be used for constructing the URL of the %node-add page, in which underscores will be converted into hyphens.', [
         '%node-add' => t('Add content'),
-      )),
-    );
+      ]),
+    ];
 
     return $form;
   }

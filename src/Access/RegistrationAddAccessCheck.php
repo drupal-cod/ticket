@@ -37,8 +37,8 @@ class RegistrationAddAccessCheck implements AccessInterface {
    * @param \Drupal\Core\Session\AccountInterface $account
    *   The currently logged in account.
    * @param \Drupal\ticket\Entity\RegistrationTypeInterface $registration_type
-   *   (optional) The registration type. If not specified, access is allowed if there
-   *   exists at least one registration type for which the user may
+   *   (optional) The registration type. If not specified, access is allowed 
+   *   if there exists at least one registration type for which the user may
    *   create a Ticket.
    *
    * @return string

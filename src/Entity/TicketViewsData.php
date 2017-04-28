@@ -16,11 +16,11 @@ class TicketViewsData extends EntityViewsData implements EntityViewsDataInterfac
   public function getViewsData() {
     $data = parent::getViewsData();
 
-    $data['ticket']['table']['base'] = array(
-      'field' => 'ticket_id',
+    $data['ticket']['table']['base'] = [
+      'field' => 'ticketId',
       'title' => $this->t('Ticket'),
       'help' => $this->t('The Ticket ID.'),
-    );
+    ];
 
     return $data;
   }

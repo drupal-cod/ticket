@@ -16,11 +16,11 @@ class RegistrationViewsData extends EntityViewsData implements EntityViewsDataIn
   public function getViewsData() {
     $data = parent::getViewsData();
 
-    $data['registration']['table']['base'] = array(
-      'field' => 'registration_id',
+    $data['registration']['table']['base'] = [
+      'field' => 'registrationId',
       'title' => $this->t('Registration'),
       'help' => $this->t('The Registration ID.'),
-    );
+    ];
 
     return $data;
   }

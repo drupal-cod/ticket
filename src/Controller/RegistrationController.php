@@ -41,13 +41,14 @@ class RegistrationController extends ControllerBase implements ContainerInjectio
   /**
    * Displays add registration links for available registration types.
    *
-   * Redirects to ticket/registrations/add/[registration_type] if only one registration type is available.
+   * Redirects to ticket/registrations/add/[registration_type]
+   * if only one registration type is available.
    *
    * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-   *   A render array for a list of the registration types that can be added; however,
-   *   if there is only one registration type defined for the site, the function
-   *   will return a RedirectResponse to the Registration add page for that one registration
-   *   type.
+   *   A render array for a list of the registration types that can
+   *   be added; however, if there is only one registration type defined
+   *   for the site, the function will return a RedirectResponse to the
+   *   Registration add page for that one registration type.
    */
   public function addPage() {
     $build = [
@@ -57,7 +58,7 @@ class RegistrationController extends ControllerBase implements ContainerInjectio
       ],
     ];
 
-    $registration = array();
+    $registration = [];
 
     // Only use node types the user has access to.
     foreach ($this->entityManager()->getStorage('registration_type')->loadMultiple() as $registration_type) {
@@ -70,7 +71,7 @@ class RegistrationController extends ControllerBase implements ContainerInjectio
     // Bypass the ticket/add listing if only one content type is available.
     if (count($registration) == 1) {
       $registration_type = array_shift($registration);
-      return $this->redirect('registration.add', array('registration_type' => $registration_type->id()));
+      return $this->redirect('registration.add', ['registration_type' => $registration_type->id()]);
     }
 
     $build['#content'] = $registration;
@@ -88,7 +89,7 @@ class RegistrationController extends ControllerBase implements ContainerInjectio
    *   A registration submission form.
    */
   public function add(RegistrationTypeInterface $registration_type) {
-    $registration = $this->entityManager()->getStorage('registration')->create(array('registration_type' => $registration_type->id()));
+    $registration = $this->entityManager()->getStorage('registration')->create(['registration_type' => $registration_type->id()]);
 
     $form = $this->entityFormBuilder()->getForm($registration);
 
@@ -105,7 +106,7 @@ class RegistrationController extends ControllerBase implements ContainerInjectio
    *   The Registration title.
    */
   public function addPageTitle(RegistrationTypeInterface $registration_type) {
-    return $this->t('Create @name', array('@name' => $registration_type->label()));
+    return $this->t('Create @name', ['@name' => $registration_type->label()]);
   }
 
 }
