@@ -1,0 +1,45 @@
+ticket.add_page:
+  path: '/ticket/tickets/add'
+  defaults:
+    _title: 'Add Ticket'
+    _controller: '\Drupal\ticket\Controller\TicketController::addPage'
+  options:
+    _ticket_operation_route: TRUE
+  requirements:
+    _ticket_add_access: 'ticket'
+
+ticket.add:
+  path: '/ticket/tickets/add/{ticket_type}'
+  defaults:
+    _controller: '\Drupal\ticket\Controller\TicketController::add'
+    _title_callback: '\Drupal\ticket\Controller\TicketController::addPageTitle'
+  requirements:
+    _ticket_add_access: 'ticket:{ticket_type}'
+  options:
+    _ticket_operation_route: TRUE
+    parameters:
+      ticket_type:
+        with_config_overrides: TRUE
+
+registration.add_page:
+  path: '/ticket/registrations/add'
+  defaults:
+    _title: 'Add Registration'
+    _controller: '\Drupal\ticket\Controller\RegistrationController::addPage'
+  options:
+    _registration_operation_route: TRUE
+  requirements:
+    _registration_add_access: 'registration'
+
+registration.add:
+  path: '/ticket/registrations/add/{registration_type}'
+  defaults:
+    _controller: '\Drupal\ticket\Controller\RegistrationController::add'
+    _title_callback: '\Drupal\ticket\Controller\RegistrationController::addPageTitle'
+  requirements:
+    _registration_add_access: 'registration:{registration_type}'
+  options:
+    _registration_operation_route: TRUE
+    parameters:
+      registration_type:
+        with_config_overrides: TRUE

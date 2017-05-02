@@ -1,0 +1,22 @@
+ticket.ticket_type.*:
+  type: config_entity
+  label: 'Ticket config'
+  mapping:
+    ticketId:
+      type: string
+      label: 'Ticket ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    uid:
+      type: string
+    langcode:
+      type: string
+    ticket_type:
+      type: string
+      label: 'Ticket Type'
+    status:
+      type: string
+      label: 'Registration Status'

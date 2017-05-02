@@ -1,0 +1,324 @@
+<?php
+
+/**
+ * @file
+ * Contains ticket.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\ticket\Entity\TicketTypeInterface;
+use Drupal\Core\Url;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\ticket\Entity\RegistrationType;
+
+/**
+ * Implements hook_help().
+ */
+function ticket_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ticket module.
+    case 'help.page.ticket':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides functionality for events to have tickets.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ticket_theme() {
+  return [
+    'ticket_add_list' => [
+      'variables' => ['content' => NULL],
+    ],
+    'registration_add_list' => [
+      'variables' => ['content' => NULL],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function ticket_theme_suggestions_ticket(array $variables) {
+  $suggestions = [];
+  $ticket = $variables['elements']['#ticket'];
+  $ticket_sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'ticket__' . $ticket_sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $ticket->bundle();
+  $suggestions[] = 'ticket__' . $ticket->bundle() . '__' . $ticket_sanitized_view_mode;
+  $suggestions[] = 'ticket__' . $ticket->id();
+  $suggestions[] = 'ticket__' . $ticket->id() . '__' . $ticket_sanitized_view_mode;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function ticket_theme_suggestions_registration(array $variables) {
+  $registration = $variables['elements']['#registration'];
+  $registration_sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'registration__' . $registration_sanitized_view_mode;
+  $suggestions[] = 'registration__' . $registration->bundle();
+  $suggestions[] = 'registration__' . $registration->bundle() . '__' . $registration_sanitized_view_mode;
+  $suggestions[] = 'registration__' . $registration->id();
+  $suggestions[] = 'registration__' . $registration->id() . '__' . $registration_sanitized_view_mode;
+  return $suggestions;
+}
+
+/**
+ * Prepares variables for list of available ticket type templates.
+ *
+ * Default template: ticket-add-list.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - content: An array of ticket types.
+ *
+ * @see ticket_add_page()
+ */
+function template_preprocess_ticket_add_list(array &$variables) {
+  $variables['ticket_type'] = [];
+  if (!empty($variables['content'])) {
+    foreach ($variables['content'] as $ticket_type) {
+      $variables['ticket_types'][$ticket_type->id()] = [
+        'ticket_type' => $ticket_type->id(),
+        'add_link' => \Drupal::l($ticket_type->label(), new Url('ticket.add', ['ticket_type' => $ticket_type->id()])),
+        'description' => [
+          '#markup' => $ticket_type->getDescription(),
+        ],
+      ];
+    }
+  }
+}
+
+/**
+ * Prepares variables for list of available registration type templates.
+ *
+ * Default template: registration-add-list.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - content: An array of registration types.
+ *
+ * @see registration_add_page()
+ */
+function template_preprocess_registration_add_list(array &$variables) {
+  $variables['registration_type'] = [];
+  if (!empty($variables['content'])) {
+    foreach ($variables['content'] as $registration_type) {
+      $variables['registration_types'][$registration_type->id()] = [
+        'registration_type' => $registration_type->id(),
+        'add_link' => \Drupal::l($registration_type->label(), new Url('registration.add', ['registration_type' => $registration_type->id()])),
+        'description' => [
+          '#markup' => $registration_type->getDescription(),
+        ],
+      ];
+    }
+  }
+}
+
+/**
+ * Creates a Registration Type Entity.
+ *
+ * @var object $entity
+ *
+ * @return entity
+ *   The modified entity.
+ */
+function ticket_entity_insert($entity) {
+  if ($entity->getEntityTypeId() == "ticket") {
+    $trid = create_trid($entity);
+    $label = create_label($entity);
+    $registrations = RegistrationType::loadMultiple();
+    if (!isset($registrations[$trid])) {
+      $registration_type = RegistrationType::create([
+        'trid' => $trid,
+        'label' => $label,
+      ]);
+      $registration_type->save();
+      $entity->setRegistrationType($trid);
+      $entity->save();
+    }
+  }
+  return $entity;
+}
+
+/**
+ * Creates a trid string.
+ *
+ * @var \Drupal\ticket\Entity\Ticket $entity
+ *
+ * @return string
+ *   The trid string for the registration type.
+ */
+function create_trid($entity) {
+  return "ticket_" . $entity->id() . "_registration";
+}
+
+/**
+ * Creates a label string.
+ *
+ * @var object \Drupal\ticket\Entity\Ticket $entity
+ *
+ * @return string
+ *   The label for the registration type.
+ */
+function create_label($entity) {
+  return $entity->getName() . " Registration";
+}
+
+/**
+ * Adds a registration field by default to new ticket type entities.
+ *
+ * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
+ * @var string $label
+ *
+ * @return field
+ *   A field object.
+ */
+function ticket_type_add_registration(TicketTypeInterface $ticketType, $label = "Registration") {
+  // Add or remove the registration type field, as needed.
+  $field_storage = FieldStorageConfig::loadByName('ticket', 'field_ticket_registration_type');
+  $field = FieldConfig::loadByName('ticket', $ticketType->id(), 'field_ticket_registration_type');
+
+  if (empty($field)) {
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $ticketType->id(),
+      'label' => $label,
+      'settings' => ['display_summary' => TRUE],
+    ]);
+    $field->save();
+  }
+
+  return $field;
+}
+
+/**
+ * Adds a date field by default to new ticket type entities.
+ *
+ * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
+ * @var string $label
+ *
+ * @return field
+ *   A field object.
+ */
+function ticket_type_add_dates(TicketTypeInterface $ticketType, $label = "Registration Dates") {
+  // Add or remove the registration dates field, as needed.
+  $field_storage = FieldStorageConfig::loadByName('ticket', 'field_ticket_registration_dates');
+  $field = FieldConfig::loadByName('ticket', $ticketType->id(), 'field_ticket_registration_dates');
+
+  if (empty($field)) {
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $ticketType->id(),
+      'label' => $label,
+      'settings' => ['display_summary' => TRUE],
+    ]);
+    $field->save();
+  }
+
+  // Assign widget settings for the 'default' form mode.
+  entity_get_form_display('ticket', $ticketType->id(), 'default')
+    ->setComponent('field_ticket_registration_dates', [
+      'type' => 'daterange_default',
+    ])
+    ->save();
+
+  return $field;
+}
+
+/**
+ * Adds a quantity field by default to new ticket type entities.
+ *
+ * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
+ * @var string $label
+ *
+ * @return field
+ *   A field object.
+ */
+function ticket_type_add_quantity(TicketTypeInterface $ticketType, $label = "Quantity of Tickets") {
+  // Add or remove the body field, as needed.
+  $field_storage = FieldStorageConfig::loadByName('ticket', 'field_ticket_quantity');
+  $field = FieldConfig::loadByName('ticket', $ticketType->id(), 'field_ticket_quantity');
+
+  if (empty($field)) {
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $ticketType->id(),
+      'label' => $label,
+      'settings' => ['display_summary' => TRUE],
+    ]);
+    $field->save();
+  }
+
+  // Assign widget settings for the 'default' form mode.
+  entity_get_form_display('ticket', $ticketType->id(), 'default')
+    ->setComponent('field_ticket_quantity', [
+      'type' => 'string_textfield',
+    ])
+    ->save();
+
+  return $field;
+}
+
+/**
+ * Adds a description field by default to new ticket type entities.
+ *
+ * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
+ * @var string $label
+ *
+ * @return field
+ *   A field object.
+ */
+function ticket_type_add_description(TicketTypeInterface $ticketType, $label = "Description") {
+  // Add or remove the body field, as needed.
+  $field_storage = FieldStorageConfig::loadByName('ticket', 'field_ticket_description');
+  $field = FieldConfig::loadByName('ticket', $ticketType->id(), 'field_ticket_description');
+
+  if (empty($field)) {
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $ticketType->id(),
+      'label' => $label,
+      'settings' => ['display_summary' => TRUE],
+    ]);
+    $field->save();
+  }
+
+  // Assign widget settings for the 'default' form mode.
+  entity_get_form_display('ticket', $ticketType->id(), 'default')
+    ->setComponent('field_ticket_description', [
+      'type' => 'text_textarea_with_summary',
+    ])
+    ->save();
+
+  // Assign display settings for the 'default' and 'teaser' view modes.
+  entity_get_display('ticket', $ticketType->id(), 'default')
+    ->setComponent('field_ticket_description', [
+      'label' => 'hidden',
+      'type' => 'text_default',
+    ])
+    ->save();
+
+  // The teaser view mode is created by the Standard profile and therefore
+  // might not exist.
+  $view_modes = \Drupal::entityManager()->getViewModes('ticket');
+  if (isset($view_modes['teaser'])) {
+    entity_get_display('ticket', $ticketType->id(), 'teaser')
+      ->setComponent('field_ticket_description', [
+        'label' => 'hidden',
+        'type' => 'text_summary_or_trimmed',
+      ])
+      ->save();
+  }
+
+  return $field;
+}

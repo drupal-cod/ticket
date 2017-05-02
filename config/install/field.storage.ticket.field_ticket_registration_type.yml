@@ -1,0 +1,19 @@
+uuid: b53bc903-0b35-440c-acd4-18e83f1fe3bf
+langcode: en
+status: true
+dependencies:
+  module:
+    - ticket
+id: ticket.field_ticket_registration_type
+field_name: field_ticket_registration_type
+entity_type: ticket
+type: entity_reference
+settings:
+  target_type: registration_type
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

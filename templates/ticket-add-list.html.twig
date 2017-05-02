@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Default theme implementation to list ticket types available for adding content.
+ *
+ * This list is displayed on the Add Ticket admin page.
+ *
+ * Available variables:
+ * - ticket types: A list of ticket types, each with the following properties:
+ *   - add_link: Link to create a piece of content of this type.
+ *   - description: Description of this type of content.
+ *
+ * @see template_preprocess_ticket_add_list()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if ticket_types is not empty %}
+    <dl>
+        {% for ticket_type in ticket_types %}
+            <dt>{{ ticket_type.add_link }}</dt>
+            <dd>{{ ticket_type.description }}</dd>
+        {% endfor %}
+    </dl>
+{% else %}
+    <p>
+        {% set create_content = path('entity.ticket_type.add_form') %}
+        {% trans %}
+        You have not created any ticket types yet. Go to the <a href="{{ create_content }}">ticket type creation page</a> to add a new ticket type.
+        {% endtrans %}
+    </p>
+{% endif %}

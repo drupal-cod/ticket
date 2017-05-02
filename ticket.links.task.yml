@@ -1,0 +1,33 @@
+# Ticket routing definition
+entity.ticket.canonical:
+  route_name: entity.ticket.canonical
+  base_route: entity.ticket.canonical
+  title: 'View'
+
+entity.ticket.edit_form:
+  route_name: entity.ticket.edit_form
+  base_route: entity.ticket.canonical
+  title: Edit
+
+entity.ticket.delete_form:
+  route_name:  entity.ticket.delete_form
+  base_route:  entity.ticket.canonical
+  title: Delete
+  weight: 10
+
+# Registration routing definition
+entity.registration.canonical:
+  route_name: entity.registration.canonical
+  base_route: entity.registration.canonical
+  title: 'View'
+
+entity.registration.edit_form:
+  route_name: entity.registration.edit_form
+  base_route: entity.registration.canonical
+  title: Edit
+
+entity.registration.delete_form:
+  route_name:  entity.registration.delete_form
+  base_route:  entity.registration.canonical
+  title: Delete
+  weight: 10

@@ -1,0 +1,12 @@
+ticket.ticket_type.*:
+  type: config_entity
+  label: 'Ticket type config'
+  mapping:
+    ttid:
+      type: string
+      label: 'Machine name'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

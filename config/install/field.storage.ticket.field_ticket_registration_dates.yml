@@ -1,0 +1,20 @@
+uuid: 677520ea-3c31-4893-9c3a-ef4f86099bfc
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime_range
+    - ticket
+id: ticket.field_ticket_registration_dates
+field_name: field_ticket_registration_dates
+entity_type: ticket
+type: daterange
+settings:
+  datetime_type: datetime
+module: datetime_range
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,12 @@
+ticket.registration_type.*:
+  type: config_entity
+  label: 'Registration type config'
+  mapping:
+    trid:
+      type: string
+      label: 'Machine name'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

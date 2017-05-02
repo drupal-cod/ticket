@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Default theme implementation to list registration types available for adding content.
+ *
+ * This list is displayed on the Add Registration admin page.
+ *
+ * Available variables:
+ * - registration types: A list of registration types, each with the following properties:
+ *   - add_link: Link to create a piece of content of this type.
+ *   - description: Description of this type of content.
+ *
+ * @see template_preprocess_registration_add_list()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if registration_types is not empty %}
+    <dl>
+        {% for registration_type in registration_types %}
+            <dt>{{ registration_type.add_link }}</dt>
+            <dd>{{ registration_type.description }}</dd>
+        {% endfor %}
+    </dl>
+{% else %}
+    <p>
+        {% set create_content = path('entity.registration_type.add_form') %}
+        {% trans %}
+        You have not created any registration types yet. Go to the <a href="{{ create_content }}">registration type creation page</a> to add a new registration type.
+        {% endtrans %}
+    </p>
+{% endif %}

@@ -1,0 +1,78 @@
+# Ticket type menu items definition
+entity.ticket_type.collection:
+  title: 'Ticket Types'
+  route_name: entity.ticket_type.collection
+  description: 'List Ticket type (bundles)'
+  parent: ticket
+  weight: 99
+  menu_name: admin
+
+# Ticket menu items definition
+tyicket_type_add:
+  title: 'Add Ticket Type'
+  route_name: entity.ticket_type.add_form
+  description: 'Create Ticket Type'
+  parent: entity.ticket_type.collection
+  weight: 100
+  menu_name: admin
+
+# Ticket menu items definition
+entity.ticket.collection:
+  title: 'Tickets'
+  route_name: entity.ticket.collection
+  description: 'List Ticket entities'
+  parent: ticket
+  weight: 100
+  menu_name: admin
+
+# Ticket menu items definition
+ticket_add:
+  title: 'Create Ticket'
+  route_name: ticket.add_page
+  description: 'Create Ticket'
+  parent: entity.ticket.collection
+  weight: 100
+  menu_name: admin
+
+ticket:
+  title: Ticket
+  description: 'Ticket Overview.'
+  route_name: entity.ticket_type.collection
+  parent: system.admin
+  weight: -10
+
+# Registration type menu items definition
+entity.registration_type.collection:
+  title: 'Registration Types'
+  route_name: entity.registration_type.collection
+  description: 'List Registration type (bundles)'
+  parent: ticket
+  weight: 99
+  menu_name: admin
+
+# Registration menu items definition
+registration_type_add:
+  title: 'Add Registration Type'
+  route_name: entity.registration_type.add_form
+  description: 'Create Registration Type'
+  parent: entity.registration_type.collection
+  weight: 100
+  menu_name: admin
+
+# Registration menu items definition
+entity.registration.collection:
+  title: 'Registrations'
+  route_name: entity.registration.collection
+  description: 'List Registration entities'
+  parent: ticket
+  weight: 100
+  menu_name: admin
+
+# Registration menu items definition
+registration_add:
+  title: 'Create Registration'
+  route_name: registration.add_page
+  description: 'Create Registration'
+  parent: entity.registration.collection
+  weight: 100
+  menu_name: admin
