@@ -94,7 +94,7 @@ before_script:
 
 script:
   - cd $TRAVIS_BUILD_DIR/docroot/modules/ticket
-  - phpcs $TRAVIS_BUILD_DIR/docroot/modules/ticket --standard=$TRAVIS_BUILD_DIR/docroot/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --ignore=bin,*.css,libraries,modules/contrib
+  - phpcs $TRAVIS_BUILD_DIR/docroot/modules/ticket --standard=$TRAVIS_BUILD_DIR/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml --ignore=bin,*.css,libraries,modules/contrib
   - behat --config $TRAVIS_BUILD_DIR/tests/behat/behat.yml --strict
   - cd $TRAVIS_BUILD_DIR/docroot
   - drush en simpletest ticket --yes

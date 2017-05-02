@@ -89,7 +89,7 @@ function template_preprocess_ticket_add_list(array &$variables) {
     foreach ($variables['content'] as $ticket_type) {
       $variables['ticket_types'][$ticket_type->id()] = [
         'ticket_type' => $ticket_type->id(),
-        'add_link' => \Drupal::l(t($ticket_type->label()), new Url('ticket.add', ['ticket_type' => $ticket_type->id()])),
+        'add_link' => \Drupal::l($ticket_type->label(), new Url('ticket.add', ['ticket_type' => $ticket_type->id()])),
         'description' => [
           '#markup' => $ticket_type->getDescription(),
         ],
@@ -109,13 +109,13 @@ function template_preprocess_ticket_add_list(array &$variables) {
  *
  * @see registration_add_page()
  */
-function template_preprocess_registration_add_list(&$variables) {
+function template_preprocess_registration_add_list(array &$variables) {
   $variables['registration_type'] = [];
   if (!empty($variables['content'])) {
     foreach ($variables['content'] as $registration_type) {
       $variables['registration_types'][$registration_type->id()] = [
         'registration_type' => $registration_type->id(),
-        'add_link' => \Drupal::l(t($registration_type->label()), new Url('registration.add', ['registration_type' => $registration_type->id()])),
+        'add_link' => \Drupal::l($registration_type->label(), new Url('registration.add', ['registration_type' => $registration_type->id()])),
         'description' => [
           '#markup' => $registration_type->getDescription(),
         ],
@@ -126,8 +126,11 @@ function template_preprocess_registration_add_list(&$variables) {
 
 /**
  * Creates a Registration Type Entity.
+ *
  * @var object $entity
- * @return object $entity
+ *
+ * @return entity
+ *   The modified entity.
  */
 function ticket_entity_insert($entity) {
   if ($entity->getEntityTypeId() == "ticket") {
@@ -137,7 +140,7 @@ function ticket_entity_insert($entity) {
     if (!isset($registrations[$trid])) {
       $registration_type = RegistrationType::create([
         'trid' => $trid,
-        'label' => t($label),
+        'label' => $label,
       ]);
       $registration_type->save();
       $entity->setRegistrationType($trid);
@@ -149,8 +152,11 @@ function ticket_entity_insert($entity) {
 
 /**
  * Creates a trid string.
+ *
  * @var \Drupal\ticket\Entity\Ticket $entity
- * @return string $trid;
+ *
+ * @return string
+ *   The trid string for the registration type.
  */
 function create_trid($entity) {
   return "ticket_" . $entity->id() . "_registration";
@@ -158,8 +164,11 @@ function create_trid($entity) {
 
 /**
  * Creates a label string.
+ *
  * @var object \Drupal\ticket\Entity\Ticket $entity
- * @return string label;
+ *
+ * @return string
+ *   The label for the registration type.
  */
 function create_label($entity) {
   return $entity->getName() . " Registration";
@@ -167,9 +176,12 @@ function create_label($entity) {
 
 /**
  * Adds a registration field by default to new ticket type entities.
+ *
  * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
  * @var string $label
- * @return \Drupal\field\Entity\FieldConfig $field
+ *
+ * @return field
+ *   A field object.
  */
 function ticket_type_add_registration(TicketTypeInterface $ticketType, $label = "Registration") {
   // Add or remove the registration type field, as needed.
@@ -191,9 +203,12 @@ function ticket_type_add_registration(TicketTypeInterface $ticketType, $label = 
 
 /**
  * Adds a date field by default to new ticket type entities.
+ *
  * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
  * @var string $label
- * @return \Drupal\field\Entity\FieldConfig $field
+ *
+ * @return field
+ *   A field object.
  */
 function ticket_type_add_dates(TicketTypeInterface $ticketType, $label = "Registration Dates") {
   // Add or remove the registration dates field, as needed.
@@ -222,9 +237,12 @@ function ticket_type_add_dates(TicketTypeInterface $ticketType, $label = "Regist
 
 /**
  * Adds a quantity field by default to new ticket type entities.
+ *
  * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
  * @var string $label
- * @return \Drupal\field\Entity\FieldConfig $field
+ *
+ * @return field
+ *   A field object.
  */
 function ticket_type_add_quantity(TicketTypeInterface $ticketType, $label = "Quantity of Tickets") {
   // Add or remove the body field, as needed.
@@ -253,9 +271,12 @@ function ticket_type_add_quantity(TicketTypeInterface $ticketType, $label = "Qua
 
 /**
  * Adds a description field by default to new ticket type entities.
+ *
  * @var \Drupal\ticket\Entity\TicketTypeInterface $ticketType
  * @var string $label
- * @return \Drupal\field\Entity\FieldConfig $field
+ *
+ * @return field
+ *   A field object.
  */
 function ticket_type_add_description(TicketTypeInterface $ticketType, $label = "Description") {
   // Add or remove the body field, as needed.

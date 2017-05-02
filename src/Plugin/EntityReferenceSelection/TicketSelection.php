@@ -124,11 +124,7 @@ class TicketSelection extends DefaultSelection {
   }
 
   /**
-   * Validate helper to have support for other entity reference widgets.
-   *
-   * @param object $element
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   * @param \Drupal\Core\Form\FormStateInterface $form
+   * {@inheritdoc}
    */
   public static function targetTypeValidate($element, FormStateInterface $form_state, $form) {
     $values = &$form_state->getValues();
