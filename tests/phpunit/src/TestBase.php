@@ -15,7 +15,7 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase {
   /**
    * Class constructor.
    */
-  public function __construct($name = NULL, array $data = array(), $data_name = '') {
+  public function __construct($name = NULL, array $data = [], $data_name = '') {
 
     parent::__construct($name, $data, $data_name);
     $this->projectDirectory = dirname(dirname(dirname(__DIR__)));
