@@ -32,7 +32,7 @@ class TicketAddAccessCheck implements AccessInterface {
   }
 
   /**
-   * Checks access to the node add page for the node type.
+   * Checks access to the ticket add page for the ticket type.
    *
    * @param \Drupal\Core\Session\AccountInterface $account
    *   The currently logged in account.
@@ -46,15 +46,15 @@ class TicketAddAccessCheck implements AccessInterface {
    */
   public function access(AccountInterface $account, TicketTypeInterface $ticket_type = NULL) {
     $access_control_handler = $this->entityManager->getAccessControlHandler('ticket');
-    // If checking whether a node of a particular type may be created.
+    // If checking whether a ticket of a particular type may be created.
     if ($account->hasPermission('administer ticket types')) {
       return AccessResult::allowed()->cachePerPermissions();
     }
     if ($ticket_type) {
       return $access_control_handler->createAccess($ticket_type->id(), $account, [], TRUE);
     }
-    // If checking whether a node of any type may be created.
-    foreach ($this->entityManager->getStorage('$ticket_type')->loadMultiple() as $ticket_type) {
+    // If checking whether a ticket of any type may be created.
+    foreach ($this->entityManager->getStorage('ticket_type')->loadMultiple() as $ticket_type) {
       if (($access = $access_control_handler->createAccess($ticket_type->id(), $account, [], TRUE)) && $access->isAllowed()) {
         return $access;
       }
